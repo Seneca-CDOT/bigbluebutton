@@ -1,0 +1,16 @@
+#!/bin/bash
+
+host=`config-get host`
+ogres=`config-get ogres`
+duration=`config-get duration`
+setup=`config-get setup`
+action=`config-get action`
+
+if [ action == "reboot" ]; then
+  sudo reboot
+fi
+
+date > /tmp/config-changed
+echo
+
+exit 0

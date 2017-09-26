@@ -1,0 +1,9 @@
+options:
+  param1:
+     default: none
+     type: string
+     description: Action of ogre
+  param2:
+     default: default
+     type: string
+     description: Target server

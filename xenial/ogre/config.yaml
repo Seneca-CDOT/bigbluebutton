@@ -1,0 +1,15 @@
+options:
+  action:
+     default: none
+     type: string
+     description: Action of ogre
+  host:
+     default: true
+     type: string
+     description: Target server
+     value: test-install.blindsidenetworks.com
+  host:
+     default: default
+     type: string
+     description: Target server
+     value: 8cd8ef52e8e101574e400365b55e11a6
