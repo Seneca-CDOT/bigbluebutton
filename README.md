@@ -1,5 +1,7 @@
 
 # Testing Amazon
+Juju needs to be installed and it requires `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to contain EC2's access key and secret key respectively.
+
 To setup
 
 ~~~
@@ -83,7 +85,7 @@ The `run.sh` script is a wrapper for launching instances of chrome with specific
 
 ### check.rb
 
-This is the ruby script that runs Chrome headless.  This script is actually stored in the `/tmp/docker` and run from within Docker.  It receives parameters from `run.sh`
+This is the ruby script that runs Chrome headless.  This script is actually stored in the `/tmp/docker` and run from within Docker.  It receives parameters from `run.sh`. By default, `check.rb` only hits the provided URL and sleeps for certain number of seconds before leaving. By modifying `check.rb`, you can add more actions to the browser flow.
 
 ## Updating the docker image.
 
