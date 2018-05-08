@@ -44,7 +44,7 @@ juju run "sudo /tmp/docker/run.sh" --all
 To run a specific commadn, such as joining the HTML5 demo on test-install, do 
 
 ~~~
-juju run "sudo /tmp/docker/run.sh -u 'https://dev2.bigbluebutton.org/demo/demoHTML5.jsp?action=create&username=Test' -c 1 -s 60" --all
+juju run "sudo /tmp/docker/run.sh -u 'https://dev2a.bigbluebutton.org/demo/demoHTML5.jsp?action=create&username=Test' -c 1 -s 60 -w 30" --all
 ~~~
 
 ## To destroy the environment
