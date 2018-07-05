@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mkdir -p /tmp/docker
+
+cp hooks/check.rb /tmp/docker
+cp hooks/run.sh /tmp/docker
+
+chmod +x /tmp/docker/check.rb
+chmod +x /tmp/docker/run.sh
+
+echo "Upgraded Charm"

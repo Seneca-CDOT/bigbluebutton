@@ -1,0 +1,11 @@
+name: simple
+summary: "Simple Charm"
+maintainer: "Fred Dixon <ffdixon@gmail.com>"
+description: |
+    Sets up an ogre that can run chrome instances 
+      target: target name
+resources:
+  file1:
+    type: file
+    filename: fred.txt
+    description: "One line description that is useful when operators need to push it."

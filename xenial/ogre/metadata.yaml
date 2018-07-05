@@ -1,0 +1,12 @@
+name: ogre
+summary: "Version 3 Ogre Smashing Script"
+maintainer: "Fred Dixon <ffdixon@gmail.com>"
+description: |
+    Sets up an ogre that can run chrome instances 
+      target: target name
+resources:
+  software:
+    type: file
+    filename: a.txt
+    description: "One line description that is useful when operators need to push it."
+

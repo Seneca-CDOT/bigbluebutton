@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Config Changed Hook"
+
+action=`config-get action`
+
+echo "Action Changed: $action" | tee -a /tmp/hook.log
+
+exit 0
+
