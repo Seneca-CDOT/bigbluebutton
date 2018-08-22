@@ -4,7 +4,7 @@ The purpose of this repo is to get BigBlueButton working in a multi-container Do
 
 # Launching BBB via Docker
 
-## Docker Requirements
+## Prerequisites
 
 Ensure you have the latest version of Docker-CE by following the install steps
 
@@ -30,7 +30,7 @@ $ sudo apt-get install docker-compose
 
 ## Build all docker images
 
-Keeping an eye on the output, you should now be able to build all docker images with one command
+You should now be able to build all docker images with one command
 ```
 $ cd labs/docker/
 $ make release
@@ -59,7 +59,7 @@ You should see:
 * bbb-greenlight
 
 
-In the event that any of the above images are missing, you will need to build them individually
+In the event that any of the above images are missing, you'll need to build them individually
 
 ## Build images individually
 
@@ -160,9 +160,7 @@ $ cd greenlight/
 $ docker build -t bbb-greenlight .
 ```
 
-## Run
-
-### Setup
+## Setup
 
 Export your configuration as environment variables, make sure to replace the SERVER_DOMAIN value with your hostname
 ```
@@ -176,18 +174,18 @@ $ export TAG_PREFIX=
 $ export TAG_SUFFIX=
 ```
 
-Get the SHARED_SECRET for your server, and also the secret key for Rails to add to the env file
+Get the SHARED_SECRET for your server, and also the secret key for greenlight
 ```
 $ echo $SHARED_SECRET
 $ docker run --rm bbb-greenlight bundle exec rake secret
 $ vi greenlight/env
 ```
-Add in the values for the following:
+Add values to the following in your env file:
 1. SECRET_KEY_BASE (from `docker run --rm bbb-greenlight bundle exec rake secret`)
 2. BIGBLUEBUTTON_ENDPOINT (https://<your_hostname_here>/bigbluebutton/)
 3. BIGBLUEBUTTON_SECRET (from `echo $SHARED_SECRET`)
 
-Also add the SECRET_KEY_BASE to production
+Also add the SECRET_KEY_BASE value to 'production' in secrets.yml
 ```
 $ vi greenlight/config/secrets.yml
 ```
@@ -222,7 +220,7 @@ $ docker exec -it nginx chown -R www-data:www-data /var/www/bigbluebutton-defaul
 $ docker stop nginx
 ```
 
-### Launch with docker-compose
+## Run
 
 Launch everything with docker compose
 ```
@@ -242,7 +240,7 @@ CTRL+C
 
 # Setting up a Kubernetes Cluster
 
-## Kubernetes Requirements
+## Prerequisites
 
 Install kubeadm, kubelet, and kubectl
 
