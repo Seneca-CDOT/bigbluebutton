@@ -6,13 +6,15 @@ The purpose of this repo is to get BigBlueButton working in a multi-container Do
 
 ## Docker Requirements
 
-Ensure you have the latest version of Docker-CE by following the install steps here:
+Ensure you have the latest version of Docker-CE by following the install steps
 
 Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/
 
-Make sure to also do the post install steps: https://docs.docker.com/install/linux/linux-postinstall/
+Make sure to also do the post install steps
+
+https://docs.docker.com/install/linux/linux-postinstall/
 
 Install docker-compose
 
