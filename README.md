@@ -230,11 +230,13 @@ $ cd labs/docker/
 $ docker-compose up
 ```
 
-You should be able to get started with greenlight at https://<your_hostname>:5000/b and go through the steps of making and account and creating meeting rooms
+You should be able to start using greenlight to access your server and create meetings
+
+https://<your_hostname>/b
 
 To exit
 ```
-CTRL+C (same as docker-compose down)
+CTRL+C
 ```
 
 

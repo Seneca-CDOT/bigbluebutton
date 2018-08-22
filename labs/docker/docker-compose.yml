@@ -123,8 +123,6 @@ services:
     image: ${TAG_PREFIX}bbb-greenlight${TAG_SUFFIX}
     restart: unless-stopped
     env_file: ${HOME}/bigbluebutton/greenlight/env
-    ports:
-      - 5000:80
     volumes:
       - ${HOME}/bigbluebutton/greenlight/db/production:/usr/src/app/db/production
       - ${HOME}/bigbluebutton/greenlight/log:/usr/src/app/log
