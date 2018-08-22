@@ -5,15 +5,18 @@ The purpose of this repo is to get BigBlueButton working in a multi-container Do
 ## Docker Requirements
 
 Ensure you have the latest version of Docker-CE by following the install steps here:
-Ubuntu https://docs.docker.com/install/linux/docker-ce/ubuntu/
-Fedora https://docs.docker.com/install/linux/docker-ce/fedora/
 
-Make sure to also do the post install steps:
-https://docs.docker.com/install/linux/linux-postinstall/
+Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
+Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/
+
+Make sure to also do the post install steps: https://docs.docker.com/install/linux/linux-postinstall/
 
 Install docker-compose
-Ubuntu `sudo dnf install docker-compose`
-Fedora `sudo apt-get install docker-compose`
+
+Ubuntu: `sudo dnf install docker-compose`
+
+Fedora: `sudo apt-get install docker-compose`
 
 ## Kubernetes Requirements
 
@@ -24,20 +27,21 @@ Install Minikube
 https://kubernetes.io/docs/tasks/tools/install-minikube/
 
 Install VirtualBox Manager
-Ubuntu `sudo dnf install virtualbox`
-Fedora `sudo apt-get install virtualbox`
+
+Ubuntu: `sudo dnf install virtualbox`
+
+Fedora: `sudo apt-get install virtualbox`
 
 ## Build all docker images
 
 Keeping an eye on the output, you should now be able to build all docker images with one command
-
 ```
 $ cd labs/docker/
 $ make release
 ```
 
 Verify that you have all the necessary images
-`docker images`
+`$ docker images`
 
 You should see:
 * sbt
@@ -149,7 +153,6 @@ $ docker build -t bbb-coturn .
 ```
 
 (Optional) Build bbb-lti
-
 ```
 $ cd bbb-lti/
 $ docker build -t bbb-lti .
@@ -178,13 +181,11 @@ $ export TAG_SUFFIX=
 ```
 
 Create a volume for the SSL certs
-
 ```
 $ docker volume create docker_ssl-conf
 ```
 
 Generate SSL certs
-
 ```
 $ docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot certonly --non-interactive --register-unsafely-without-email --agree-tos --expand --domain $SERVER_DOMAIN --standalone
 
@@ -193,7 +194,6 @@ $ docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certb
 ```
 
 Generate Diffie-Hellman file
-
 ```
 $ docker run --rm -v docker_ssl-conf:/data -it nginx-dhp
 
@@ -201,7 +201,6 @@ $ docker run --rm -v docker_ssl-conf:/data -it nginx-dhp
 ```
 
 Create a volume for the static files
-
 ```
 $ docker volume create docker_static
 $ cd bigbluebutton-config/web/
