@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 
-# in order to build images for fcecagno/bigbluebutton, run:
-# IMAGE_ACCOUNT=fcecagno IMAGE_REPO=bigbluebutton make release
+# in order to build images for Seneca-CDOT/bigbluebutton, run:
+# IMAGE_ACCOUNT=Seneca-CDOT IMAGE_REPO=bigbluebutton make release
 
 # build options
 BUILD_REVISION=`git rev-parse --short HEAD`
@@ -55,3 +55,4 @@ release:
 	make image DIR=$(BUILD_DIR_BASE)/labs/docker/nginx IMAGE_NAME=bbb-nginx
 	make image DIR=$(BUILD_DIR_BASE)/labs/docker/coturn IMAGE_NAME=bbb-coturn
 	make image DIR=$(BUILD_DIR_BASE)/bbb-lti IMAGE_NAME=bbb-lti
+	make image DIR=$(BUILD_DIR_BASE)/greenlight IMAGE_NAME=bbb-greenlight
