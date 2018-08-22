@@ -182,8 +182,15 @@ $ echo $SHARED_SECRET
 $ docker run --rm bbb-greenlight bundle exec rake secret
 $ vi greenlight/env
 ```
-Add in the values for SECRET_KEY_BASE (from `docker run --rm bbb-greenlight bundle exec rake secret`, BIGBLUEBUTTON_ENDPOINT (https://<your_hostname_here>/bigbluebutton/), and BIGBLUEBUTTON_SECRET (from `echo $SHARED_SECRET`) and save the file
+Add in the values for the following:
+1. SECRET_KEY_BASE (from `docker run --rm bbb-greenlight bundle exec rake secret`)
+2. BIGBLUEBUTTON_ENDPOINT (https://<your_hostname_here>/bigbluebutton/)
+3. BIGBLUEBUTTON_SECRET (from `echo $SHARED_SECRET`)
 
+Also add the SECRET_KEY_BASE to production
+```
+$ vi greenlight/config/secrets.yml
+```
 
 Create a volume for the SSL certs
 ```

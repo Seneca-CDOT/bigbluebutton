@@ -1,7 +1,7 @@
 # Create a Secret Key for Rails
 #
 # You can generate a secure one through the Greenlight docker image
-# with the command:
+# with with the command.
 #
 #   docker run --rm bigbluebutton/greenlight:v2 bundle exec rake secret
 #
