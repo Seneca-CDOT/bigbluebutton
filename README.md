@@ -37,7 +37,9 @@ $ make release
 ```
 
 Verify that you have all the necessary images
-`$ docker images`
+```
+$ docker images
+```
 
 You should see:
 * sbt
