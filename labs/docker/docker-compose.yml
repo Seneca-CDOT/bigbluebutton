@@ -128,6 +128,9 @@ services:
     volumes:
       - ${HOME}/bigbluebutton/greenlight/db/production:/usr/src/app/db/production
       - ${HOME}/bigbluebutton/greenlight/log:/usr/src/app/log
+    labels:
+      - "traefik.backend=bbb-greenlight"
+      - "traefik.frontend.rule=PathPrefix: /b"
 
   # when we're able to setup traefik properly for wss, nginx is no longer needed
   nginx:
