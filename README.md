@@ -1,6 +1,6 @@
 # Purpose
 
-The purpose of this repo is to get BigBlueButton working in a multi-container Docker configuration over a single port, then to deploy and scale it through Kubernetes
+The purpose of this repo is to get BigBlueButton working in a multi-container Docker configuration over a single port, then to deploy and scale it using Kubernetes
 
 # Launching BBB via Docker
 
@@ -256,12 +256,12 @@ Install VirtualBox Manager
 
 Ubuntu:
 ```
-sudo dnf install virtualbox
+$ sudo dnf install virtualbox
 ```
 
 Fedora:
 ```
-sudo apt-get install virtualbox
+$ sudo apt-get install virtualbox
 ```
 
 ## Setup
@@ -286,4 +286,5 @@ $ sudo modprobe ip_vs_sh
 ```
 
 Create a single master cluster with kubeadm
+
 https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/
