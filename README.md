@@ -26,26 +26,6 @@ Fedora:
 $ sudo apt-get install docker-compose
 ```
 
-## Kubernetes Requirements
-
-Install Kubectl
-https://kubernetes.io/docs/tasks/tools/install-kubectl/
-
-Install Minikube
-https://kubernetes.io/docs/tasks/tools/install-minikube/
-
-Install VirtualBox Manager
-
-Ubuntu:
-```
-$ sudo dnf install virtualbox
-```
-
-Fedora:
-```
-$ sudo apt-get install virtualbox
-```
-
 ## Build all docker images
 
 Keeping an eye on the output, you should now be able to build all docker images with one command
@@ -254,6 +234,7 @@ CTRL+C (same as docker-compose down)
 ## Kubernetes Requirements
 
 Install kubeadm, kubelet, and kubectl
+
 https://kubernetes.io/docs/setup/independent/install-kubeadm/
 
 To disable swap, comment out the "swap" line in the following file, then do a reboot:
@@ -268,13 +249,20 @@ $ sudo free -h
 ```
 
 Install Minikube
+
 https://kubernetes.io/docs/tasks/tools/install-minikube/
 
 Install VirtualBox Manager
 
-Ubuntu: `sudo dnf install virtualbox`
+Ubuntu:
+```
+sudo dnf install virtualbox
+```
 
-Fedora: `sudo apt-get install virtualbox`
+Fedora:
+```
+sudo apt-get install virtualbox
+```
 
 ## Setup
 
