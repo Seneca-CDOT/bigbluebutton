@@ -1,6 +1,8 @@
-## Purpose
+# Purpose
 
 The purpose of this repo is to get BigBlueButton working in a multi-container Docker configuration over a single port, then to deploy and scale it through Kubernetes
+
+# Launching BBB via Docker
 
 ## Docker Requirements
 
@@ -14,9 +16,15 @@ Make sure to also do the post install steps: https://docs.docker.com/install/lin
 
 Install docker-compose
 
-Ubuntu: `sudo dnf install docker-compose`
+Ubuntu: 
+```
+$ sudo dnf install docker-compose
+```
 
-Fedora: `sudo apt-get install docker-compose`
+Fedora:
+```
+$ sudo apt-get install docker-compose
+```
 
 ## Kubernetes Requirements
 
@@ -28,9 +36,15 @@ https://kubernetes.io/docs/tasks/tools/install-minikube/
 
 Install VirtualBox Manager
 
-Ubuntu: `sudo dnf install virtualbox`
+Ubuntu:
+```
+$ sudo dnf install virtualbox
+```
 
-Fedora: `sudo apt-get install virtualbox`
+Fedora:
+```
+$ sudo apt-get install virtualbox
+```
 
 ## Build all docker images
 
@@ -168,7 +182,7 @@ $ docker build -t bbb-greenlight .
 
 ### Setup
 
-Export your configuration as environment variables
+Export your configuration as environment variables, make sure to replace the SERVER_DOMAIN value with your hostname
 ```
 $ export SERVER_DOMAIN=romania.cdot.systems
 $ export EXTERNAL_IP=$(dig +short $SERVER_DOMAIN | grep '^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$' | head -n 1)
@@ -179,6 +193,15 @@ $ export SCREENSHARE_EXTENSION_KEY=mbfngdphjegmlbfobcblikeefpidfncb
 $ export TAG_PREFIX=
 $ export TAG_SUFFIX=
 ```
+
+Get the SHARED_SECRET for your server, and also the secret key for Rails to add to the env file
+```
+$ echo $SHARED_SECRET
+$ docker run --rm bbb-greenlight bundle exec rake secret
+$ vi greenlight/env
+```
+Add in the values for SECRET_KEY_BASE (from `docker run --rm bbb-greenlight bundle exec rake secret`, BIGBLUEBUTTON_ENDPOINT (https://<your_hostname_here>/bigbluebutton/), and BIGBLUEBUTTON_SECRET (from `echo $SHARED_SECRET`) and save the file
+
 
 Create a volume for the SSL certs
 ```
@@ -218,7 +241,61 @@ $ cd labs/docker/
 $ docker-compose up
 ```
 
+You should be able to get started with greenlight at https://<your_hostname>:5000/b and go through the steps of making and account and creating meeting rooms
+
 To exit
 ```
 CTRL+C (same as docker-compose down)
 ```
+
+
+# Setting up a Kubernetes Cluster
+
+## Kubernetes Requirements
+
+Install kubeadm, kubelet, and kubectl
+https://kubernetes.io/docs/setup/independent/install-kubeadm/
+
+To disable swap, comment out the "swap" line in the following file, then do a reboot:
+```
+$ sudo vi /etc/fstab
+$ sudo systemctl reboot
+```
+
+Verify swap is disabled
+```
+$ sudo free -h
+```
+
+Install Minikube
+https://kubernetes.io/docs/tasks/tools/install-minikube/
+
+Install VirtualBox Manager
+
+Ubuntu: `sudo dnf install virtualbox`
+
+Fedora: `sudo apt-get install virtualbox`
+
+## Setup
+
+Ensure you have the following kernel modules loaded to avoid preflight errors and warnings when setting up your cluster:
+* ip_vs
+* ip_vs_rr
+* ip_vs_wrr
+* ip_vs_sh
+
+You can check if you already have these loaded with
+```
+$ lsmod | grep ip_vs
+```
+
+If the kernel modules aren't loaded, go ahead and add them
+```
+$ sudo modprobe ip_vs
+$ sudo modprobe ip_vs_rr
+$ sudo modprobe ip_vs_wrr
+$ sudo modprobe ip_vs_sh
+```
+
+Create a single master cluster with kubeadm
+https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/

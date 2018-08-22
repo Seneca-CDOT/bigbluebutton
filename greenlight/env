@@ -13,7 +13,7 @@ SECRET_KEY_BASE=731522ab863d6cb80b4ee9e671ab746bff442b4ad1e2e962b09e2d9203b5a954
 #
 #   bbb-conf --secret
 #
-BIGBLUEBUTTON_ENDPOINT=http://romania.cdot.systems/bigbluebutton/
+BIGBLUEBUTTON_ENDPOINT=https://romania.cdot.systems/bigbluebutton/
 BIGBLUEBUTTON_SECRET=84962eaa40e4460ef293d5311160690d
 
 # Enable SSL
