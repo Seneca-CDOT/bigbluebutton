@@ -1,0 +1,57 @@
+<%
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+%>
+
+<tr>
+  <td>
+    <div><%= recording[:name] %></div>
+    <div class="small text-muted">
+      <%= t("recording.recorded_on", date: recording_date(recording[:startTime])) %>
+    </div>
+  </td>
+  <td>
+    <% p = recording[:playbacks].find do |p| p[:type] == "presentation" end %>
+    <% if p && p.key?(:preview) && recording_thumbnails? %>
+      <% p[:preview][:images][:image].each do |img| %>
+        <%= image_tag(img[:content].strip, class: "thumbnail px-2") %>
+      <% end %>
+    <% end %>
+  </td>
+  <td class="text-left">
+    <div class="small text-muted text-uppercase">
+      <%= t("recording.table.length") %>
+    </div>
+    <%= recording_length(recording[:playbacks]) %>
+  </td>
+  <td class="text-left">
+    <div class="small text-muted text-uppercase">
+      <%= t("recording.table.users") %>
+    </div>
+    <%= recording[:participants] %>
+  </td>
+  <td class="text-left">
+    <div class="dropdown">
+      <% if recording[:metadata][:"gl-listed"] == "true" %>
+        <i class="dropdown-icon fas fa-globe px-2"></i> <%= t("recording.visibility.public") %>
+      <% else %>
+        <i class="dropdown-icon fas fa-link px-2"></i> <%= t("recording.visibility.unlisted") %>
+      <% end %>
+    </div>
+  </td>
+  <td>
+    <% recording[:playbacks].each do |p| %>
+      <%= link_to p[:type].capitalize, p[:url], class: "btn btn-sm btn-primary", target: "_blank" %>
+    <% end %>
+  </td>
+</tr>

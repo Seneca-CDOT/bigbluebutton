@@ -118,6 +118,16 @@ services:
       - "traefik.backend=bbb-web"
       - "traefik.frontend.rule=PathPrefix: /bigbluebutton"
 
+  bbb-greenlight:
+    image: ${TAG_PREFIX}bbb-greenlight${TAG_SUFFIX}
+    restart: unless-stopped
+    env_file: ${HOME}/bigbluebutton/greenlight/env
+    ports:
+      - 5000:80
+    volumes:
+      - ${HOME}/bigbluebutton/greenlight/db/production:/usr/src/app/db/production
+      - ${HOME}/bigbluebutton/greenlight/log:/usr/src/app/log
+
   # when we're able to setup traefik properly for wss, nginx is no longer needed
   nginx:
     image: ${TAG_PREFIX}bbb-nginx${TAG_SUFFIX}

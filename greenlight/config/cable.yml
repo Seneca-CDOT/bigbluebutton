@@ -1,0 +1,8 @@
+development:
+  adapter: async
+
+test:
+  adapter: test
+
+production:
+  adapter: <%= ENV['CABLE_ADAPTER'] || 'async' %>

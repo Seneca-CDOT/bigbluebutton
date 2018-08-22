@@ -1,0 +1,160 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2018 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
+
+# English (en) locale.
+
+en:
+  bigbluebutton: BigBlueButton
+  cancel: Cancel
+  copy: Copy
+  delete: Delete
+  docs: Documentation
+  email: Email
+  enter_your_name: Enter your name!
+  errors:
+    internal:
+      message: Oh no! Looks like something went wrong on our end.
+      help: The error has been logged, we'll take a look!
+    migration_error:
+      contact_admin: If you are not an administrator, please contact one.
+      continue: I'd like to stay using 1.0.
+      notice: >
+        Greenlight encountered a database migration error.<br>
+        This may be because you haven't updated to Greenlight 2.0.
+      upgrade: Show me how to upgrade to 2.0!
+      version: We've released a new version of Greenlight, but your database isn't compatible.
+    not_found:
+      message: Whoops! Looks like we can't find that.
+      help: Is it possible its been removed?
+    title: Errors
+    unprocessable:
+      message: Oops! Request is unprocessable.
+      help: Unforunately this isn't a valid request.
+  features:
+    title: Features
+    rooms: Personalized Rooms
+    recordings: Recording Management
+    designs: Custom Designs
+    authentication: User Authentication
+  footer:
+    powered_by: Powered by %{href}.
+  go_back: Go back
+  greenlight: Greenlight
+  header:
+    create_room: Create Room
+    dropdown:
+      help: Need help?
+      home: Home Room
+      settings: Settings
+      signout: Sign out
+  home_room: Home Room
+  info_update_success: Information successfully updated.
+  invalid_credentials: Login failed due to invalid credentials. Are you sure you entered them correctly?
+  invite_message: "To invite someone to the meeting, send them this link:"
+  landing:
+    about: Greenlight is a simple front-end for your %{href} open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link.
+    welcome: Welcome to <span class="green-grad">Greenlight</span>.
+    video: Watch our tutorial on using Greenlight
+    upgrade: Show me how to upgrade to 2.0!
+    version: We've released a new version of Greenlight, but your database isn't compatible.
+  ldap_error: Unable to connect to the LDAP server. Please check your LDAP configuration in the env file and ensure your server is running.
+  login: Login
+  modal:
+    create_room:
+      auto_join: Automatically join me into the room.
+      free_delete: You will be free to delete this room at any time.
+      name_placeholder: Enter a room name...
+      not_blank: Room name cannot be blank.
+      title: Create New Room
+    delete_account:
+      confirm: Are you sure you want to delete your account?
+      delete: I'm sure, delete my account.
+      keep: Actually, I'll keep it.
+      warning: This decision is final. You will <b>not</b> be able to recover associated data.
+    delete_room:
+      confirm: Are you sure you want to delete %{room}?
+      delete: I'm sure, delete this room.
+      keep: On second thought, I'll keep it.
+      warning: You will <b>not</b> be able to recover this room or any of its associated recordings.
+    login:
+      or: or
+      with: Login with %{provider}
+  omniauth_error: An error occured while authenticating with omniauth. Please try again or contact an administrator!
+  password: Password
+  recording:
+    email: Email Recording
+    no_recordings: This room has no %{inject}recordings.
+    recorded_on: Recorded on %{date}
+    table:
+      name: Name
+      thumbnails: Thumbnails
+      length: Length
+      users: Users
+      visibility: Visibility
+      formats: Formats
+    visibility:
+      public: Public
+      unlisted: Unlisted
+  room:
+    invited: You have been inivited to join
+    invite_participants: Invite Participants
+    join: Join
+    last_session: Last session on %{session}
+    owner: Owner
+    no_sessions: This room has no sessions, yet!
+    recordings: Recordings
+    sessions: Sessions
+    settings: Room Settings
+    start: Start
+    wait:
+      message: Oops! The meeting hasn't started yet.
+      auto: You will automatically join when the meeting starts.
+  settings:
+    account:
+      fullname: Fullname
+      provider: Provider
+      image: Image
+      image_url: Profile Image URL
+      subtitle: Update your Account Info
+      title: Account Info
+    delete:
+      button: Yes, I would like to delete my account.
+      disclaimer: If you choose to delete your account, it will <b>NOT</b> be recoverable. All information regarding your account, including settings, rooms, and recording will be removed.
+      subtitle: Permanently Delete your Account
+      title: Delete Account
+    design:
+      not_supported: Customization not currently supported.
+      subtitle: Customize Greenlight
+      title: Design
+    password:
+      confirmation: New Password Confirmation
+      new: New Password
+      old: Old Password
+      subtitle: Change your Password
+      title: Password
+    title: Settings
+  signup:
+    password_confirm: Password Confirmation
+    subtitle: Create an Account
+    title: Signup
+    with: Signup with %{provider}
+  terms:
+    accept: I accept the terms and conditions.
+    title: Terms and Conditions
+  test_install: >
+    This deployment is using a pre-configured testing server, you should replace this with your own.
+    For details, see the %{href}.
+  update: Update
