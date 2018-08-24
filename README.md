@@ -58,7 +58,6 @@ You should see:
 * nginx-dhp
 * bbb-coturn
 * bbb-lti
-* bbb-greenlight
 
 
 In the event that any of the above images are missing, you'll need to build them individually
@@ -156,12 +155,6 @@ $ cd bbb-lti/
 $ docker build -t bbb-lti .
 ```
 
-Build greenlight
-```
-$ cd greenlight/
-$ docker build -t bbb-greenlight .
-```
-
 ## Setup
 
 Export your configuration as environment variables, make sure to replace the SERVER_DOMAIN value with your hostname
@@ -170,26 +163,11 @@ $ export SERVER_DOMAIN=romania.cdot.systems
 $ export EXTERNAL_IP=$(dig +short $SERVER_DOMAIN | grep '^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$' | head -n 1)
 $ export SHARED_SECRET=`openssl rand -hex 16`
 $ export COTURN_REST_SECRET=`openssl rand -hex 16`
+$ export SECRET_KEY_BASE=`docker run --rm bigbluebutton/greenlight:v2 bundle exec rake secret`
 $ export SCREENSHARE_EXTENSION_LINK=https://chrome.google.com/webstore/detail/mconf-screenshare/mbfngdphjegmlbfobcblikeefpidfncb
 $ export SCREENSHARE_EXTENSION_KEY=mbfngdphjegmlbfobcblikeefpidfncb
 $ export TAG_PREFIX=
 $ export TAG_SUFFIX=
-```
-
-Get the SHARED_SECRET for your server, and also the secret key for greenlight
-```
-$ echo $SHARED_SECRET
-$ docker run --rm bbb-greenlight bundle exec rake secret
-$ vi greenlight/env
-```
-Add values to the following in your env file:
-1. SECRET_KEY_BASE (from `docker run --rm bbb-greenlight bundle exec rake secret`)
-2. BIGBLUEBUTTON_ENDPOINT (https://<your_hostname_here>/bigbluebutton/)
-3. BIGBLUEBUTTON_SECRET (from `echo $SHARED_SECRET`)
-
-Also add the SECRET_KEY_BASE value to 'production' in secrets.yml
-```
-$ vi greenlight/config/secrets.yml
 ```
 
 Create a volume for the SSL certs
