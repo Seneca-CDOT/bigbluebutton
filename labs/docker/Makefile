@@ -55,4 +55,3 @@ release:
 	make image DIR=$(BUILD_DIR_BASE)/labs/docker/nginx IMAGE_NAME=bbb-nginx
 	make image DIR=$(BUILD_DIR_BASE)/labs/docker/coturn IMAGE_NAME=bbb-coturn
 	make image DIR=$(BUILD_DIR_BASE)/bbb-lti IMAGE_NAME=bbb-lti
-	make image DIR=$(BUILD_DIR_BASE)/greenlight IMAGE_NAME=bbb-greenlight

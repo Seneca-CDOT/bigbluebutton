@@ -120,12 +120,16 @@ services:
       - "traefik.frontend.rule=PathPrefix: /bigbluebutton"
 
   bbb-greenlight:
-    image: ${TAG_PREFIX}bbb-greenlight${TAG_SUFFIX}
+    image: bigbluebutton/greenlight:v2
     restart: unless-stopped
-    env_file: ${HOME}/bigbluebutton/greenlight/env
     volumes:
-      - ${HOME}/bigbluebutton/greenlight/db/production:/usr/src/app/db/production
-      - ${HOME}/bigbluebutton/greenlight/log:/usr/src/app/log
+      - greenlight_db:/usr/src/app/db/production
+      - greenlight_logs:/usr/src/app/log
+    environment:
+      BIGBLUEBUTTON_ENDPOINT: https://${SERVER_DOMAIN}/bigbluebutton/
+      BIGBLUEBUTTON_SECRET: ${SHARED_SECRET}
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      ALLOW_GREENLIGHT_ACCOUNTS: "true"
     labels:
       - "traefik.backend=bbb-greenlight"
       - "traefik.frontend.rule=PathPrefix: /b"
@@ -174,3 +178,5 @@ volumes:
   media-audio:
   media-video:
   media-screenshare:
+  greenlight_db:
+  greenlight_logs:
