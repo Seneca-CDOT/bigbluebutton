@@ -1,8 +1,15 @@
 
-# Testing Amazon
+# Ogre
+
+Ogre is an internal test framework for heavy load testing using actual BigBlueButton users.  That is, Chrome clients that fully load the Flash/HTML5 client and join the audio.
+
+Ogre uses Juju to create a set servers, called `units`, for running large amounts of docker containers.  Each server can run about 5 docker containers (each container running Chrome 68).  Using Juju for orchestration allows you to send a command to all units.  For example, of you have started 10 units launch 5 instances of Chrome against a specific BigBlueButton server, you'll have 100 real users join.
+
+## Before you install
+
 Juju needs to be installed and it requires `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to contain EC2's access key and secret key respectively.
 
-To setup
+To setup the Juju environment, execute the following commands
 
 ~~~
 juju bootstrap aws 
@@ -14,7 +21,7 @@ juju deploy ./xenial/ogre --series xenial
 
 ## To add/remove more Ogres
 
-To add 9 Ogres
+To add 9 ogres (for a total of 10)
 
 ~~~
 juju add-unit --num-units 9 ogre
@@ -26,25 +33,43 @@ To remove an ogre
 juju remove-unit ogre/1
 ~~~
 
-If you update the charm, you can deploy the updates
+If you update the charm, you can deploy the updated version
 
 ~~~
 juju upgrade-charm  --path ./xenial/ogre ogre
 ~~~
 
+To see the status of all ogres
+
+~~~
+juju status
+~~~
+
 ## Using Ogre
 
-Juju let's you run a command on all your servers
+To create users, you use the `juju` command to start instances of Chrome (running in docker) and pass specific parameters.  For example, the command
 
 ~~~
-juju run "sudo /tmp/docker/run.sh" --all
+juju run "sudo /tmp/docker/run.sh -h test-install.blindsidenetworks.com -e 8cd8ef52e8e101574e400365b55e11a6 -c 2 -s 60 -w 30" --all
 ~~~
 
-
-To run a specific commadn, such as joining the HTML5 demo on test-install, do 
+runs 
 
 ~~~
-juju run "sudo /tmp/docker/run.sh -u 'https://dev2a.bigbluebutton.org/demo/demoHTML5.jsp?action=create&username=Test' -c 1 -s 60 -w 30" --all
+sudo /tmp/docker/run.sh -h test-install.blindsidenetworks.com -e 8cd8ef52e8e101574e400365b55e11a6 -c 2 -s 60 -w 30
+~~~
+
+on every unit.  This command does the following
+
+  * launch two instances of docker `-c 2`,
+  * that start randomly within the first 30 seconds `-w 30`,
+  * detect when they have successfully joined the audio bridge,
+  * and then sleep for sixty seconds `-s 60`.
+
+To join the meeting `test1` instead, add `-m test`.
+
+~~~
+juju run "sudo /tmp/docker/run.sh -h test-install.blindsidenetworks.com -e 8cd8ef52e8e101574e400365b55e11a6 -m test1 -c 2 -s 60 -w 30" --all
 ~~~
 
 ## To destroy the environment
@@ -95,6 +120,8 @@ You can update the docker image (after creating a new version in `/tmp/chrome31.
 
 ~~~
 aws s3 ls s3://bn-docker-bDXqSVIGc2isXGp14fDf
-docker save chrome31 | gzip -c > /tmp/chrome31.tar.gz
-aws s3 cp /tmp/chrome31.tar.gz s3://bn-docker-bDXqSVIGc2isXGp14fDf
+docker save chrome68 | gzip -c > /tmp/chrome68.tar.gz
+aws s3 cp /tmp/chrome68.tar.gz s3://bn-docker-bDXqSVIGc2isXGp14fDf
 ~~~
+
+After updating, you need to login to the AWS console and make the above file public.

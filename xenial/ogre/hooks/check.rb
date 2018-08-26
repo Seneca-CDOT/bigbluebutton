@@ -5,7 +5,7 @@
 # Copright (c) 2016 Blindside Networks Inc
 #
 require "selenium-webdriver"
-require "trollop"
+require "optimist"
 require "headless"
 require "yaml"
 require 'uri'
@@ -19,7 +19,7 @@ require 'socket'
 
 # require 'byebug' ; byebug
 
-opts = Trollop::options do
+opts = Optimist::options do
   opt :server, "BigBlueButton server in servers.yaml", :type => String, :default => "test-install"
 
   opt :host, "BigBlueButton Host (name or IP address) ", :type => String
@@ -105,7 +105,7 @@ if doc.at_xpath('//returncode').content == "SUCCESS"
     log.info( "Successfully set config.xml" )
 
     headless = Headless.new( display: rand(100) )
-    headless.start
+   headless.start
 
     params = {
       :fullName => name,
@@ -117,7 +117,8 @@ if doc.at_xpath('//returncode').content == "SUCCESS"
     join_url = bbb_api( bbb_host, bbb_secret, 'join', params )
     log.info( join_url )
 
-    driver = Selenium::WebDriver.for :chrome, :switches => %w[--no-sandbox --use-fake-device-for-media-stream --use-fake-ui-for-media-stream]
+    options = Selenium::WebDriver::Chrome::Options.new(args: ['no-sandbox', 'disable-dev-shm-usage', 'ppapi-flash-version=30.0.0.154', 'ppapi-flash-path=/home/f1/.config/google-chrome/PepperFlash/30.0.0.154/libpepflashplayer.so', 'user-data-dir=/home/f1/.config/google-chrome'])
+    driver = Selenium::WebDriver.for(:chrome, options: options)
 
     if opts[:warmup]
        length = Random.new.rand(opts[:warmup].to_i)

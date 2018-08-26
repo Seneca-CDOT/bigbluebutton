@@ -5,7 +5,7 @@ MAINTAINER Fred Dixon
 # Tell debconf to run in non-interactive mode
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo 'Acquire::http::Proxy "http://192.168.0.130:3142";'  > /etc/apt/apt.conf.d/01proxy
+#RUN echo 'Acquire::http::Proxy "http://192.168.0.130:3142 ";'  > /etc/apt/apt.conf.d/01proxy
 
 # Make sure the repository information is up to date
 RUN apt-get update && apt-get dist-upgrade -y
@@ -24,7 +24,7 @@ RUN apt-get install -y \
  ruby ruby-dev unzip build-essential xvfb x11vnc libxml2-dev zlib1g-dev libcurl4-gnutls-dev
 
 RUN echo echo "gem: --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install nokogiri trollop selenium-webdriver headless ruby-hmac curb byebug
+RUN gem install nokogiri optimist selenium-webdriver headless ruby-hmac curb byebug
 
 # --
 

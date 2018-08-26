@@ -95,10 +95,10 @@ pids=()
 for (( ogre=0; ogre<$COUNT; ogre++ )); do
   echo "Smasing $host with Ogre $IP-$ogre"
   if [ -z $URL ]; then
-    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome31 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS &
+    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome68 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS &
   else
     URL=`echo $URL | sed "s/Test/$IP-$ogre/g"`
-    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome31 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS -u $URL &
+    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome68 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS -u $URL &
   fi
   # docker run --rm -v /tmp/docker:/tmp/docker -t chrome31 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS &
   pids+=($!)
