@@ -1,3 +1,5 @@
+IMPORTANT: this is a work in progress!
+
 # Purpose
 
 The purpose of this repo is to get BigBlueButton working in a multi-container Docker configuration over a single port, then to deploy and scale it using Kubernetes
@@ -55,7 +57,6 @@ You should see:
 * bbb-kurento
 * bbb-freeswitch
 * bbb-nginx
-* nginx-dhp
 * bbb-coturn
 * bbb-lti
 
@@ -159,38 +160,18 @@ $ docker build -t bbb-lti .
 
 Export your configuration as environment variables, make sure to replace the SERVER_DOMAIN value with your hostname
 ```
-$ export SERVER_DOMAIN=romania.cdot.systems
+$ export SERVER_DOMAIN=docker.bigbluebutton.org
 $ export EXTERNAL_IP=$(dig +short $SERVER_DOMAIN | grep '^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$' | head -n 1)
 $ export SHARED_SECRET=`openssl rand -hex 16`
 $ export COTURN_REST_SECRET=`openssl rand -hex 16`
-$ export SECRET_KEY_BASE=`docker run --rm bigbluebutton/greenlight:v2 bundle exec rake secret`
-$ export SCREENSHARE_EXTENSION_LINK=https://chrome.google.com/webstore/detail/mconf-screenshare/mbfngdphjegmlbfobcblikeefpidfncb
-$ export SCREENSHARE_EXTENSION_KEY=mbfngdphjegmlbfobcblikeefpidfncb
+$ export SECRET_KEY_BASE=`openssl rand -hex 64`
+$ export SCREENSHARE_EXTENSION_KEY=akgoaoikmbmhcopjgakkcepdgdgkjfbc
+$ export SCREENSHARE_EXTENSION_LINK=https://chrome.google.com/webstore/detail/bigbluebutton-screenshare/akgoaoikmbmhcopjgakkcepdgdgkjfbc
 $ export TAG_PREFIX=
 $ export TAG_SUFFIX=
 ```
 
-Create a volume for the SSL certs
-```
-$ docker volume create docker_ssl-conf
-```
-
-Generate SSL certs
-```
-$ docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot certonly --non-interactive --register-unsafely-without-email --agree-tos --expand --domain $SERVER_DOMAIN --standalone
-
-# certificate path: docker_ssl-conf/live/$SERVER_DOMAIN/fullchain.pem
-# key path: docker_ssl-conf/live/$SERVER_DOMAIN/privkey.pem
-```
-
-Generate Diffie-Hellman file
-```
-$ docker run --rm -v docker_ssl-conf:/data -it nginx-dhp
-
-# dh-param path: docker_ssl-conf/dhp-2048.pem
-```
-
-Create a volume for the static files
+Create a volume for the static files (optional)
 ```
 $ docker volume create docker_static
 $ cd bigbluebutton-config/web/
