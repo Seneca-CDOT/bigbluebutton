@@ -167,12 +167,12 @@ export TAG_SUFFIX=
 
 Create a volume for the SSL certs
 ```
-$ docker volume create docker_ssl-conf	
+docker volume create docker_ssl-conf	
 ```	
 
 Generate SSL certs	
 ```	
-$ docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot certonly --non-interactive --register-unsafely-without-email --agree-tos --expand --domain $SERVER_DOMAIN --standalone	
+docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot certonly --non-interactive --register-unsafely-without-email --agree-tos --expand --domain $SERVER_DOMAIN --standalone	
 
 # certificate path: docker_ssl-conf/live/$SERVER_DOMAIN/fullchain.pem	
 # key path: docker_ssl-conf/live/$SERVER_DOMAIN/privkey.pem	
