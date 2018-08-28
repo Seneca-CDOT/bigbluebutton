@@ -91,19 +91,16 @@ if [ "$COUNT" == "0" ]; then
   exit 0
 fi
 
-# Enable line below to install expect (required for logging)
-#apt install -y expect
-
 rm /tmp/docker/*.log
 echo "TIMEOUT: $TIMEOUT"
 pids=()
 for (( ogre=0; ogre<$COUNT; ogre++ )); do
   echo "Smasing $host with Ogre $IP-$ogre"
   if [ -z $URL ]; then
-    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome31 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS &
+    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome68 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS &
   else
     URL=`echo $URL | sed "s/Test/$IP-$ogre/g"`
-    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome31 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS -u $URL &
+    timeout $TIMEOUT docker run --rm -v /tmp/docker:/tmp/docker -t chrome68 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS -u $URL &
   fi
   # docker run --rm -v /tmp/docker:/tmp/docker -t chrome31 -h $HOST -e $SECRET -m "$MEETING" -w $WARMUP -l $SLEEP -n $IP-$ogre $OPS &
   pids+=($!)
@@ -114,14 +111,3 @@ SUCCESS=$(grep  "Success!" /tmp/docker/*.log | wc --lines)
 FAILED=$(($COUNT-$SUCCESS))
 echo "success: $SUCCESS"
 echo "failed: $FAILED"
-
-# Enable lines below to send logs to your machine using expect
-#/usr/bin/expect << EOF
-#spawn rsync -a -e ssh /tmp/docker/ <username>@<ip>:~/bbblogs
-#expect "Are you sure you want to continue connecting (yes/no)?"
-#send "yes\r"
-#expect "password:"
-#send "<password>\r"
-#expect "*\r"
-#expect "\r"
-#EOF

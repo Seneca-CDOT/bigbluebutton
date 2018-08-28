@@ -73,6 +73,7 @@ IP = Socket.ip_address_list[0].ip_address
 log = Logger.new(STDOUT)
 log = Logger.new("/tmp/docker/#{name}.log")
 log.level = Logger::INFO
+
 log.info( "Starting: #{IP}" )
 log.info( opts )
 
@@ -104,7 +105,7 @@ if doc.at_xpath('//returncode').content == "SUCCESS"
     log.info( "Successfully set config.xml" )
 
     headless = Headless.new( display: rand(100) )
-    headless.start
+   headless.start
 
     params = {
       :fullName => name,
@@ -129,8 +130,6 @@ if doc.at_xpath('//returncode').content == "SUCCESS"
       driver.navigate.to opts[:url]
       sleep 5
       log.info("  Success!")
-      log.info("Joining audio (HTML5)")
-      driver.find_element(:xpath, "//button[2]/span[2]").click
       if opts[:sleep]
         log.info( "Sleeping for #{opts[:sleep]} seconds" )
         sleep opts[:sleep].to_i
@@ -148,19 +147,19 @@ if doc.at_xpath('//returncode').content == "SUCCESS"
       sleep opts[:sleep].to_i
     end
 
-    # Try joining the audio (Flash)
-    #log.info( "Joining Audio ..." )
-    #(0..10).each do |i|
-    #  sleep 2
-    #  log.info("Check: #{i}")
+    # Try joining the audio
+    log.info( "Joining Audio ..." )
+    (0..10).each do |i|
+      sleep 2
+      log.info("Check: #{i}")
 
-    #  element = driver.find_element(:id, 'BigBlueButton')
-    #  if driver.execute_script("return getJoinedVoice()" , element)
-    #    log.info("  Success!")
-    #    driver.quit
-    #    exit 1
-    #  end
-    #end
+      element = driver.find_element(:id, 'BigBlueButton')
+      if driver.execute_script("return getJoinedVoice()" , element)
+        log.info("  Success!")
+        driver.quit
+        exit 1
+      end
+    end
 
     driver.quit
     headless.destroy
