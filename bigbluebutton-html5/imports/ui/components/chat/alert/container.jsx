@@ -2,10 +2,10 @@ import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import UserListService from '/imports/ui/components/user-list/service';
 import Settings from '/imports/ui/services/settings';
-import ChatNotification from './component';
+import ChatAlert from './component';
 
-const ChatNotificationContainer = props => (
-  <ChatNotification {...props} />
+const ChatAlertContainer = props => (
+  <ChatAlert {...props} />
 );
 
 export default withTracker(() => {
@@ -13,9 +13,9 @@ export default withTracker(() => {
   const openChats = UserListService.getOpenChats();
 
   return {
-    disableAudio: !AppSettings.chatAudioNotifications,
-    disableNotify: !AppSettings.chatPushNotifications,
+    disableAudio: !AppSettings.chatAudioAlerts,
+    disableNotify: !AppSettings.chatPushAlerts,
     openChats,
     publicUserId: Meteor.settings.public.chat.public_userid,
   };
-})(ChatNotificationContainer);
+})(ChatAlertContainer);
