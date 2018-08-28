@@ -10,9 +10,9 @@ apt-get update
 sudo apt-get -y install docker-engine
 service docker start
 
-#wget http://54.242.169.245/chrome31.tar.gz
-wget https://s3.amazonaws.com/bn-docker-bDXqSVIGc2isXGp14fDf/chrome31.tar.gz
-gunzip -c chrome31.tar.gz | docker load
+#wget http://54.242.169.245/chrome68.tar.gz
+wget https://s3.amazonaws.com/bn-docker-bDXqSVIGc2isXGp14fDf/chrome68.tar.gz
+gunzip -c chrome68.tar.gz | docker load
 
 mkdir -p /tmp/docker
 cp hooks/check.rb /tmp/docker
