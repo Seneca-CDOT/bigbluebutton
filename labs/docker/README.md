@@ -177,6 +177,7 @@ docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot
 # certificate path: docker_ssl-conf/live/$SERVER_DOMAIN/fullchain.pem	
 # key path: docker_ssl-conf/live/$SERVER_DOMAIN/privkey.pem	
 ```
+NOTE: If running on AWS, you won't be able to use the default Public DNS for your SERVER_DOMAIN as Let's Encrypt doesn't allow generating SSL certs from any *.amazonaws.com domain. Alternatively, you can create a PTR record that goes from a non-AWS FQDN to the AWS FQDN.
 
 Create a volume for the static files (optional)
 ```
