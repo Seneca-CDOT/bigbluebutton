@@ -188,6 +188,11 @@ docker exec -it nginx chown -R www-data:www-data /var/www/bigbluebutton-default
 docker stop nginx
 ```
 
+Ensure the following ports are open:
+* TCP/UDP 3478
+* TCP 80
+* TCP 443
+
 ## Run
 
 Launch everything with docker compose
