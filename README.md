@@ -16,4 +16,3 @@ For full technical documentation BigBlueButton -- including architecture, featur
 
 BigBlueButton and the BigBlueButton Logo are trademarks of [BigBlueButton Inc](http://bigbluebutton.org).
 
-This is a test
