@@ -152,7 +152,8 @@ docker build -t bbb-lti .
 
 ## Setup
 
-#### Export your configuration as environment variables, replacing SERVER_DOMAIN's value with your FQDN
+#### Export your configuration as environment variables
+NOTE: replace the example SERVER_DOMAIN's value with your own FQDN
 ```
 export SERVER_DOMAIN=docker.bigbluebutton.org
 export EXTERNAL_IP=$(dig +short $SERVER_DOMAIN | grep '^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$' | head -n 1)
@@ -189,7 +190,7 @@ docker exec -it nginx chown -R www-data:www-data /var/www/bigbluebutton-default
 docker stop nginx
 ```
 
-#### Ensure the following ports are open:
+#### Ensure the following ports are open
 * TCP/UDP 3478
 * TCP 80
 * TCP 443
@@ -220,7 +221,7 @@ CTRL+C
 
 https://kubernetes.io/docs/setup/independent/install-kubeadm/
 
-#### To disable swap, comment out the "swap" line in the following file, then do a reboot:
+#### Disable swap by commenting out the "swap" line in /etc/fstab, then do a reboot
 ```
 sudo vi /etc/fstab
 sudo systemctl reboot
@@ -249,7 +250,7 @@ sudo apt-get install virtualbox
 
 ## Setup
 
-Ensure you have the following kernel modules loaded to avoid preflight errors and warnings when setting up your cluster:
+#### The following kernel modules are required to avoid preflight errors and warnings during cluster setup
 * ip_vs
 * ip_vs_rr
 * ip_vs_wrr
