@@ -22,12 +22,12 @@ https://docs.docker.com/install/linux/linux-postinstall/
 
 Ubuntu: 
 ```
-sudo dnf install docker-compose
+sudo apt-get install docker-compose
 ```
 
 Fedora:
 ```
-sudo apt-get install docker-compose
+sudo dnf install docker-compose
 ```
 
 ## Build all docker images
@@ -240,12 +240,12 @@ https://kubernetes.io/docs/tasks/tools/install-minikube/
 
 Ubuntu:
 ```
-sudo dnf install virtualbox
+sudo apt-get install virtualbox
 ```
 
 Fedora:
 ```
-sudo apt-get install virtualbox
+sudo dnf install virtualbox
 ```
 
 ## Setup
