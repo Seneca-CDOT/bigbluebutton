@@ -8,37 +8,37 @@ The purpose of this repo is to get BigBlueButton working in a multi-container Do
 
 ## Prerequisites
 
-Ensure you have the latest version of Docker-CE by following the install steps
+#### Ensure you have the latest version of Docker-CE by following the install steps
 
 Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/
 
-Make sure to also do the post install steps
+#### Make sure to also do the post install steps
 
 https://docs.docker.com/install/linux/linux-postinstall/
 
-Install docker-compose
+#### Install docker-compose
 
 Ubuntu: 
-```
-sudo dnf install docker-compose
-```
-
-Fedora:
 ```
 sudo apt-get install docker-compose
 ```
 
+Fedora:
+```
+sudo dnf install docker-compose
+```
+
 ## Build all docker images
 
-You should now be able to build all docker images with one command
+#### Build all docker images with one command
 ```
 cd labs/docker/
 make release
 ```
 
-Verify that you have all the necessary images
+#### Verify that you have all the necessary images
 ```
 docker images
 ```
@@ -152,7 +152,8 @@ docker build -t bbb-lti .
 
 ## Setup
 
-Export your configuration as environment variables, make sure to replace the SERVER_DOMAIN value with your hostname
+#### Export your configuration as environment variables
+NOTE: replace the example SERVER_DOMAIN's value with your own FQDN
 ```
 export SERVER_DOMAIN=docker.bigbluebutton.org
 export EXTERNAL_IP=$(dig +short $SERVER_DOMAIN | grep '^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$' | head -n 1)
@@ -165,12 +166,12 @@ export TAG_PREFIX=
 export TAG_SUFFIX=
 ```
 
-Create a volume for the SSL certs
+#### Create a volume for the SSL certs
 ```
 docker volume create docker_ssl-conf	
 ```	
 
-Generate SSL certs	
+#### Generate SSL certs	
 ```	
 docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot certonly --non-interactive --register-unsafely-without-email --agree-tos --expand --domain $SERVER_DOMAIN --standalone	
 
@@ -179,7 +180,7 @@ docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot
 ```
 NOTE: If running on AWS, you won't be able to use the default Public DNS for your SERVER_DOMAIN as Let's Encrypt doesn't allow generating SSL certs from any *.amazonaws.com domain. Alternatively, you can create a PTR record that goes from a non-AWS FQDN to the AWS FQDN.
 
-Create a volume for the static files (optional)
+#### Create a volume for the static files (optional)
 ```
 docker volume create docker_static
 cd bigbluebutton-config/web/
@@ -189,19 +190,24 @@ docker exec -it nginx chown -R www-data:www-data /var/www/bigbluebutton-default
 docker stop nginx
 ```
 
+#### Ensure the following ports are open
+* TCP/UDP 3478
+* TCP 80
+* TCP 443
+
 ## Run
 
-Launch everything with docker compose
+#### Launch everything with docker compose
 ```
 cd labs/docker/
 docker-compose up
 ```
 
-You should be able to start using greenlight to access your server and create meetings
+#### Access your server via greenlight and create meetings
 
-https://<your_hostname>/b
+https://<your_fqdn_here>/b
 
-To exit
+#### To shut down and exit gracefully
 ```
 CTRL+C
 ```
@@ -211,51 +217,51 @@ CTRL+C
 
 ## Prerequisites
 
-Install kubeadm, kubelet, and kubectl
+#### Install kubeadm, kubelet, and kubectl
 
 https://kubernetes.io/docs/setup/independent/install-kubeadm/
 
-To disable swap, comment out the "swap" line in the following file, then do a reboot:
+#### Disable swap by commenting out the "swap" line in /etc/fstab, then do a reboot
 ```
 sudo vi /etc/fstab
 sudo systemctl reboot
 ```
 
-Verify swap is disabled
+#### Verify swap is disabled
 ```
 sudo free -h
 ```
 
-Install Minikube
+#### Install Minikube
 
 https://kubernetes.io/docs/tasks/tools/install-minikube/
 
-Install VirtualBox Manager
+#### Install VirtualBox Manager
 
 Ubuntu:
-```
-sudo dnf install virtualbox
-```
-
-Fedora:
 ```
 sudo apt-get install virtualbox
 ```
 
+Fedora:
+```
+sudo dnf install virtualbox
+```
+
 ## Setup
 
-Ensure you have the following kernel modules loaded to avoid preflight errors and warnings when setting up your cluster:
+#### The following kernel modules are required to avoid preflight errors and warnings during cluster setup
 * ip_vs
 * ip_vs_rr
 * ip_vs_wrr
 * ip_vs_sh
 
-You can check if you already have these loaded with
+#### Check if kernel modules are already loaded
 ```
 lsmod | grep ip_vs
 ```
 
-If the kernel modules aren't loaded, go ahead and add them
+#### Add the kernel modules (if not already loaded)
 ```
 sudo modprobe ip_vs
 sudo modprobe ip_vs_rr
@@ -263,6 +269,6 @@ sudo modprobe ip_vs_wrr
 sudo modprobe ip_vs_sh
 ```
 
-Create a single master cluster with kubeadm
+#### Create a single master cluster with kubeadm
 
 https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/
