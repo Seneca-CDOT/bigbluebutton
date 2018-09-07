@@ -10,11 +10,18 @@ The purpose of this repo is to get BigBlueButton working in a multi-container Do
 
 #### Ensure you have the latest version of Docker-CE by following the install steps
 
+Automatically:
+```
+curl -fsSL get.docker.com -o get-docker.sh
+sh get-docker.sh
+```
+
+Manually:
 Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/
 
-#### Make sure to also do the post install steps
+#### Make sure to also do the post install steps (if doing a manual install)
 
 https://docs.docker.com/install/linux/linux-postinstall/
 
@@ -217,12 +224,9 @@ CTRL+C
 
 ## Prerequisites
 
-#### Install kubeadm, kubelet, and kubectl
-
-https://kubernetes.io/docs/setup/independent/install-kubeadm/
-
 #### Disable swap by commenting out the "swap" line in /etc/fstab, then do a reboot
 ```
+sudo swapoff -a
 sudo vi /etc/fstab
 sudo systemctl reboot
 ```
@@ -232,11 +236,11 @@ sudo systemctl reboot
 sudo free -h
 ```
 
-#### Install Minikube
+#### Install Minikube (if using VM's as nodes)
 
 https://kubernetes.io/docs/tasks/tools/install-minikube/
 
-#### Install VirtualBox Manager
+#### Install VirtualBox Manager (if using VM's as nodes)
 
 Ubuntu:
 ```
@@ -269,6 +273,68 @@ sudo modprobe ip_vs_wrr
 sudo modprobe ip_vs_sh
 ```
 
-#### Create a single master cluster with kubeadm
+#### Ensure required ports are open
 
-https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/
+https://kubernetes.io/docs/setup/independent/install-kubeadm/#check-required-ports
+
+#### Install kubeadm, kubelet, and kubectl
+
+https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
+
+#### Add kubectl autocomplete to the Bash shell (optional)
+```
+source <(kubectl completion bash)
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+```
+
+#### Create a single master cluster with kubeadm + Flannel
+IMPORTANT: the `kubeadm init` command will generate a join command near the end of the output, make a note of that command as you'll need it to join nodes to your cluster later on
+```
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+
+#### Deploy Kubernetes Dashboard UI
+```
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+kubectl proxy
+```
+Navigate to the dashboard in your browser:
+
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+At the sign-in prompt, press 'skip'
+
+Kubeadm enforces RBAC, so ClusterRoleBinding will need access to the dashboard. Create this file in your .kube directory:
+```
+vi ~/.kube/kube-dashboard-access.yaml
+```
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-dashboard
+  labels:
+    k8s-app: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-dashboard
+  namespace: kube-system
+```
+
+Apply the changes to the cluster:
+```
+kubectl create -f ~/.kube/kube-dashboard-access.yaml
+```
+
+#### Join your nodes to the cluster
+
+Use the join command that was generated from `kubeadm init` earlier to add nodes to the cluster
