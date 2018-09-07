@@ -302,13 +302,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 #### Deploy Kubernetes Dashboard UI
 ```
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-kubectl proxy
 ```
-Navigate to the dashboard in your browser:
-
-http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
-
-At the sign-in prompt, press 'skip'
 
 Kubeadm enforces RBAC, so ClusterRoleBinding will need access to the dashboard. Create this file in your .kube directory:
 ```
@@ -335,7 +329,20 @@ Apply the changes to the cluster:
 ```
 kubectl create -f ~/.kube/kube-dashboard-access.yaml
 ```
+Start the dashboard:
+```
+kubectl proxy
+```
+Navigate to the dashboard in your browser:
+
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+At the sign-in prompt, press 'skip'
 
 #### Join your nodes to the cluster
 
 Use the join command that was generated from `kubeadm init` earlier to add nodes to the cluster
+
+## Deploy
+
+https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/
