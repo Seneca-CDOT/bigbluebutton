@@ -17,11 +17,12 @@ sh get-docker.sh
 ```
 
 Manually:
+
 Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/
 
-#### Make sure to also do the post install steps (if doing a manual install)
+IMPORTANT: Make sure to also do the post install steps (if doing a manual install)
 
 https://docs.docker.com/install/linux/linux-postinstall/
 
@@ -160,7 +161,7 @@ docker build -t bbb-lti .
 ## Setup
 
 #### Export your configuration as environment variables
-NOTE: replace the example SERVER_DOMAIN's value with your own FQDN
+IMPORTANT: replace the example SERVER_DOMAIN's value with your own FQDN
 ```
 export SERVER_DOMAIN=docker.bigbluebutton.org
 export EXTERNAL_IP=$(dig +short $SERVER_DOMAIN | grep '^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$' | head -n 1)
@@ -185,7 +186,7 @@ docker run --rm -p 80:80 -v docker_ssl-conf:/etc/letsencrypt -it certbot/certbot
 # certificate path: docker_ssl-conf/live/$SERVER_DOMAIN/fullchain.pem	
 # key path: docker_ssl-conf/live/$SERVER_DOMAIN/privkey.pem	
 ```
-NOTE: If running on AWS, you won't be able to use the default Public DNS for your SERVER_DOMAIN as Let's Encrypt doesn't allow generating SSL certs from any *.amazonaws.com domain. Alternatively, you can create a PTR record that goes from a non-AWS FQDN to the AWS FQDN.
+IMPORTANT: If running on AWS, you won't be able to use the default Public DNS for your SERVER_DOMAIN as Let's Encrypt doesn't allow generating SSL certs from any *.amazonaws.com domain. Alternatively, you can create a PTR record that goes from a non-AWS FQDN to the AWS FQDN.
 
 #### Create a volume for the static files (optional)
 ```
@@ -288,7 +289,7 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc
 ```
 
 #### Create a single master cluster with kubeadm + Flannel
-IMPORTANT: the `kubeadm init` command will generate a join command near the end of the output, make a note of that command as you'll need it to join nodes to your cluster later on
+IMPORTANT: the `kubeadm init` command will generate a join command towards the end of the output, make note of that command as you'll need it to join nodes to your cluster later on
 ```
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 mkdir -p $HOME/.kube
