@@ -22,7 +22,7 @@ Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 Fedora: https://docs.docker.com/install/linux/docker-ce/fedora/
 
-IMPORTANT: Make sure to also do the post install steps (if doing a manual install)
+IMPORTANT: If doing a manual install, make sure to also do the post install steps:
 
 https://docs.docker.com/install/linux/linux-postinstall/
 
