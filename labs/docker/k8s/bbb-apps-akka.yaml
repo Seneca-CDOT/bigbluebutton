@@ -28,7 +28,7 @@ spec:
       - env:
         - name: JAVA_OPTS
           value: -Dredis.host=redis
-        image: fcecagno/bigbluebutton:bbb-apps-akka
+        image: bbb-apps-akka
         imagePullPolicy: Always
         name: bbb-apps-akka
         ports:
