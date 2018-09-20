@@ -29,17 +29,13 @@ spec:
         - name: JAVA_OPTS
           value: -Dredis.host=redis
         image: bbb-apps-akka
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: bbb-apps-akka
+        resources: {}
         ports:
         - containerPort: 8080
           protocol: TCP
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
+        kubernetes.io/hostname: aws0

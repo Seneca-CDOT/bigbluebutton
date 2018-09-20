@@ -27,26 +27,22 @@ spec:
       containers:
       - env:
         - name: SERVER_DOMAIN
-          value: bigbluebutton.rocket.chat
+          value: (FQDN HERE)
         - name: SHARED_SECRET
           value: "12345"
-        - name: TURN_SECRET
-          value: "54321"
-        image: fcecagno/bigbluebutton:bbb-web
-        imagePullPolicy: Always
+        - name: TURN_SECRET # coturn secret?
+          value: "12345"
+        image: bbb-web
+        imagePullPolicy: IfNotPresent
         name: bbb-web
+        resources: {}
         ports:
         - containerPort: 8080
           protocol: TCP
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
+        kubernetes.io/hostname: aws0
 
 ---
 apiVersion: v1
@@ -74,7 +70,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-  - host: bigbluebutton.rocket.chat
+  - host: (FDQN HERE)
     http:
       paths:
       - path: /bigbluebutton

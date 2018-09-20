@@ -25,21 +25,17 @@ spec:
       name: mongo
     spec:
       containers:
-      - image: mongo:3.6
-        imagePullPolicy: Always
+      - image: mongo:3.4
+        imagePullPolicy: IfNotPresent
         name: mongo
+        resources: {}
         ports:
         - containerPort: 27017
           protocol: TCP
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
+        kubernetes.io/hostname: aws0
 
 ---
 apiVersion: v1

@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-apps-akka
+  name: bbb-apps-akka
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-apps-akka
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Dredis.host=redis
+        image: bbb-apps-akka
+        imagePullPolicy: IfNotPresent
+        name: bbb-apps-akka
+        resources: {}
+      restartPolicy: Always
+status: {}

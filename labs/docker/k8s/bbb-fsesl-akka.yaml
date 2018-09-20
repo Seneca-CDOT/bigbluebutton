@@ -28,16 +28,13 @@ spec:
       - env:
         - name: JAVA_OPTS
           value: -Dredis.host=redis -Dfreeswitch.esl.host=bbb-freeswitch
-        image: fcecagno/bigbluebutton:bbb-fsesl-akka
-        imagePullPolicy: Always
+        image: bbb-fsesl-akka
+        imagePullPolicy: IfNotPresent
         name: bbb-fsesl-akka
+        resources: {}
         command: ["wait-for-it.sh", "bbb-freeswitch:8021", "--timeout=60", "--strict", "--", "/usr/share/bbb-fsesl-akka/bin/bbb-fsesl-akka"]
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
+        kubernetes.io/hostname: aws0
+

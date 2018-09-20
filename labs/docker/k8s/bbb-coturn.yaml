@@ -29,16 +29,17 @@ spec:
         - name: PORT
           value: "3478"
         - name: SERVER_DOMAIN
-          value: bigbluebutton.rocket.chat
-        - name: SECRET
-          value: "54321"
+          value: (FQDN HERE)
+        - name: SECRET # SHARED_SECRET?
+          value: "12345"
         - name: EXTERNAL_IP
-          value: "35.185.19.180"
+          value: "0.0.0.0"
         - name: ENABLE_REST_API
           value: "1"
-        image: fcecagno/bigbluebutton:bbb-coturn
-        imagePullPolicy: Always
+        image: bbb-coturn
+        imagePullPolicy: IfNotPresent
         name: bbb-coturn
+        resources: {}
         ports:
         - containerPort: 3478
           protocol: TCP
@@ -47,12 +48,7 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
+        kubernetes.io/hostname: aws0
 
 ---
 apiVersion: v1

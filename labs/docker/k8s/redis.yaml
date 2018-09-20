@@ -26,20 +26,16 @@ spec:
     spec:
       containers:
       - image: redis:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: redis
+        resources: {}
         ports:
         - containerPort: 6379
           protocol: TCP
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
+        kubernetes.io/hostname: aws0
 
 ---
 apiVersion: v1

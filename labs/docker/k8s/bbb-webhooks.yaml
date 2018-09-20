@@ -30,22 +30,22 @@ spec:
           value: redis
         - name: SHARED_SECRET
           value: "12345"
-        image: fcecagno/bigbluebutton:bbb-webhooks
-        imagePullPolicy: Always
+        - name: BEARER_AUTH
+          value: "1"
+        - name: SERVER_DOMAIN
+          value: (FDQN HERE)
+        image: bbb-webhooks
+        imagePullPolicy: IfNotPresent
         name: bbb-webhooks
+        resources: {}
         ports:
         - containerPort: 3005
           protocol: TCP
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
-
+        kubernetes.io/hostname: aws0
+        
 ---
 apiVersion: v1
 kind: Service
@@ -72,7 +72,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-  - host: bigbluebutton.rocket.chat
+  - host: (FDQN HERE)
     http:
       paths:
       - path: /bigbluebutton/api/hooks

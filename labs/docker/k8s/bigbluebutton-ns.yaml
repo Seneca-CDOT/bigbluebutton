@@ -1,3 +1,6 @@
+# This file is just used to create the 'bigbluebutton' namespace in kubernetes
+# kubectl create -f ./bigbluebutton-ns.yaml
+
 apiVersion: v1
 kind: Namespace
 metadata:

@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+    traefik.backend: bbb-webrtc-sfu
+    traefik.frontend.rule: 'PathPrefix: /bbb-webrtc-sfu'
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-webrtc-sfu
+  name: bbb-webrtc-sfu
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-webrtc-sfu
+    spec:
+      containers:
+      - env:
+        - name: FREESWITCH_IP
+          value: bbb-freeswitch
+        - name: KURENTO_NAME
+          value: kurento
+        - name: KURENTO_URL
+          value: ws://kurento:8888/kurento
+        - name: LOG_LEVEL
+          value: debug
+        - name: REDIS_HOST
+          value: redis
+        image: bbb-webrtc-sfu
+        imagePullPolicy: IfNotPresent
+        name: bbb-webrtc-sfu
+        resources: {}
+      restartPolicy: Always
+status: {}

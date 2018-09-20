@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: traefik
+  name: traefik
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: traefik
+    spec:
+      containers:
+      - args:
+        - traefik
+        - '-'
+        - --docker
+        - '-'
+        - --logLevel=INFO
+        - '-'
+        - --acme
+        - '-'
+        - --acme.httpchallenge
+        - '-'
+        - --acme.httpchallenge.entrypoint=http
+        - '-'
+        - --acme.acmelogging
+        - '-'
+        - --acme.storage=/etc/traefik/acme/acme.json
+        - '-'
+        - --acme.email=felipe@mconf.com
+        - '-'
+        - --acme.entrypoint=https
+        - '-'
+        - --acme.domains=romania.cdot.systems
+        - '-'
+        - --defaultentrypoints=http,https
+        - '-'
+        - --entryPoints=Name:http Address::80 Redirect.EntryPoint:https
+        - '-'
+        - --entryPoints=Name:https Address::443 TLS
+        image: traefik
+        name: traefik
+        ports:
+        - containerPort: 80
+        - containerPort: 8080
+        - containerPort: 443
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/traefik/acme/
+          name: traefik-acme
+        - mountPath: /var/run/docker.sock
+          name: traefik-claim1
+      restartPolicy: Always
+      volumes:
+      - name: traefik-acme
+        persistentVolumeClaim:
+          claimName: traefik-acme
+      - name: traefik-claim1
+        persistentVolumeClaim:
+          claimName: traefik-claim1
+status: {}

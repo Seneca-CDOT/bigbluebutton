@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+    traefik.backend: bbb-html5
+    traefik.frontend.rule: 'PathPrefix: /html5client,/_timesync'
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-html5
+  name: bbb-html5
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-html5
+    spec:
+      containers:
+      - env:
+        - name: METEOR_SETTINGS_MODIFIER
+          value: .public.kurento.wsUrl = "wss://romania.cdot.systems/bbb-webrtc-sfu"
+            | .public.kurento.enableVideo = true | .public.kurento.enableScreensharing
+            = true | .public.kurento.chromeDefaultExtensionKey = "akgoaoikmbmhcopjgakkcepdgdgkjfbc"
+            | .public.kurento.chromeDefaultExtensionLink = "https://chrome.google.com/webstore/detail/bigbluebutton-screenshare/akgoaoikmbmhcopjgakkcepdgdgk"
+            | .public.kurento.enableVideoStats = true | .public.kurento.enableListenOnly
+            = true
+        - name: MONGO_URL
+          value: mongodb://mongo/bbbhtml5
+        - name: REDIS_HOST
+          value: redis
+        - name: ROOT_URL
+          value: http://127.0.0.1/html5client
+        image: bbb-html5
+        name: bbb-html5
+        resources: {}
+      restartPolicy: Always
+status: {}

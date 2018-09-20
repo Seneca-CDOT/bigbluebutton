@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+    traefik.backend: bbb-greenlight
+    traefik.frontend.rule: 'PathPrefix: /b'
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-greenlight
+  name: bbb-greenlight
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-greenlight
+    spec:
+      containers:
+      - env:
+        - name: ALLOW_GREENLIGHT_ACCOUNTS
+          value: "true"
+        - name: BIGBLUEBUTTON_ENDPOINT
+          value: https://romania.cdot.systems/bigbluebutton/
+        - name: BIGBLUEBUTTON_SECRET
+          value: 3c9adf27e59c6c4098616a80c90c5b3e
+        - name: SECRET_KEY_BASE
+          value: dfa17b594f8a523695967e6664345d589d5358534d8d56c6839c25cea43f6f1ff3adf7218d8c65278decb5df1ba99217106bd77384b29719dccd8deac81f084f
+        image: bigbluebutton/greenlight:v2
+        name: bbb-greenlight
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/src/app/db/production
+          name: greenlight-db
+        - mountPath: /usr/src/app/log
+          name: greenlight-logs
+      restartPolicy: Always
+      volumes:
+      - name: greenlight-db
+        persistentVolumeClaim:
+          claimName: greenlight-db
+      - name: greenlight-logs
+        persistentVolumeClaim:
+          claimName: greenlight-logs
+status: {}

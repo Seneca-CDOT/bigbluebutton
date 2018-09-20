@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+    traefik.backend: bbb-freeswitch
+    traefik.frontend.rule: 'PathPrefix: /ws'
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nginx
+  name: nginx
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nginx
+    spec:
+      containers:
+      - env:
+        - name: SERVER_DOMAIN
+          value: romania.cdot.systems
+        image: bbb-nginx
+        name: nginx
+        resources: {}
+      restartPolicy: Always
+status: {}

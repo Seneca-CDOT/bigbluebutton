@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+    traefik.backend: bbb-web
+    traefik.frontend.rule: 'PathPrefix: /bigbluebutton'
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-web
+  name: bbb-web
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-web
+    spec:
+      containers:
+      - env:
+        - name: SERVER_DOMAIN
+          value: romania.cdot.systems
+        - name: SHARED_SECRET
+          value: 3c9adf27e59c6c4098616a80c90c5b3e
+        - name: TURN_DOMAIN
+          value: romania.cdot.systems
+        - name: TURN_SECRET
+          value: c3c269f9fd030b48a5e2eda5c265744a
+        image: bbb-web
+        name: bbb-web
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/bigbluebutton
+          name: bigbluebutton
+      restartPolicy: Always
+      volumes:
+      - name: bigbluebutton
+        persistentVolumeClaim:
+          claimName: bigbluebutton
+status: {}

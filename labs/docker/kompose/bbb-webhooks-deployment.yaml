@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+    traefik.backend: bbb-webhooks
+    traefik.frontend.rule: 'PathPrefix: /bigbluebutton/api/hooks'
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-webhooks
+  name: bbb-webhooks
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-webhooks
+    spec:
+      containers:
+      - env:
+        - name: BEARER_AUTH
+          value: "1"
+        - name: REDIS_HOST
+          value: redis
+        - name: SERVER_DOMAIN
+          value: romania.cdot.systems
+        - name: SHARED_SECRET
+          value: 3c9adf27e59c6c4098616a80c90c5b3e
+        image: bbb-webhooks
+        name: bbb-webhooks
+        resources: {}
+      restartPolicy: Always
+status: {}

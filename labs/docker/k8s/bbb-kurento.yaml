@@ -31,21 +31,17 @@ spec:
           value: "35.185.19.180"
         - name: KMS_STUN_PORT
           value: "3478"
-        image: fcecagno/bigbluebutton:bbb-kurento
-        imagePullPolicy: Always
+        image: bbb-kurento
+        imagePullPolicy: IfNotPresent
         name: bbb-kurento
+        resources: {}
         ports:
         - containerPort: 8888
           protocol: TCP
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        role: 'bigbluebutton'
-      tolerations:
-      - key: role
-        operator: Equal
-        value: 'bigbluebutton'
-        effect: NoSchedule
+        kubernetes.io/hostname: aws0
 
 ---
 apiVersion: v1
@@ -64,6 +60,7 @@ spec:
     app: bbb-kurento
 
 
+# How are docker-compose volumes implemented in k8s?
     # volumes:
     #   - media-video:/var/kurento/recordings
     #   - media-screenshare:/var/kurento/screenshare
