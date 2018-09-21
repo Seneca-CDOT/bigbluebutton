@@ -68,3 +68,62 @@ spec:
         persistentVolumeClaim:
           claimName: traefik-claim1
 status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: traefik
+  name: traefik
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 80
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  - name: "443"
+    port: 443
+    targetPort: 443
+  selector:
+    io.kompose.service: traefik
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: traefik-acme
+  name: traefik-acme
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: traefik-claim1
+  name: traefik-claim1
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}

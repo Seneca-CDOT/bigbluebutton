@@ -38,3 +38,28 @@ spec:
         resources: {}
       restartPolicy: Always
 status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: coturn
+  name: coturn
+spec:
+  ports:
+  - name: "3478"
+    port: 3478
+    protocol: UDP
+    targetPort: 3478
+  - name: 3478-tcp
+    port: 3478
+    targetPort: 3478
+  selector:
+    io.kompose.service: coturn
+status:
+  loadBalancer: {}

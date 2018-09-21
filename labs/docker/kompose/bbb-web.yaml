@@ -42,3 +42,19 @@ spec:
         persistentVolumeClaim:
           claimName: bigbluebutton
 status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bigbluebutton
+  name: bigbluebutton
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}

@@ -22,12 +22,7 @@ spec:
       containers:
       - env:
         - name: METEOR_SETTINGS_MODIFIER
-          value: .public.kurento.wsUrl = "wss://romania.cdot.systems/bbb-webrtc-sfu"
-            | .public.kurento.enableVideo = true | .public.kurento.enableScreensharing
-            = true | .public.kurento.chromeDefaultExtensionKey = "akgoaoikmbmhcopjgakkcepdgdgkjfbc"
-            | .public.kurento.chromeDefaultExtensionLink = "https://chrome.google.com/webstore/detail/bigbluebutton-screenshare/akgoaoikmbmhcopjgakkcepdgdgk"
-            | .public.kurento.enableVideoStats = true | .public.kurento.enableListenOnly
-            = true
+          value: .public.kurento.wsUrl = "wss://romania.cdot.systems/bbb-webrtc-sfu" | .public.kurento.enableVideo = true | .public.kurento.enableScreensharing = true | .public.kurento.chromeDefaultExtensionKey = "akgoaoikmbmhcopjgakkcepdgdgkjfbc"| .public.kurento.chromeDefaultExtensionLink = "https://chrome.google.com/webstore/detail/bigbluebutton-screenshare/akgoaoikmbmhcopjgakkcepdgdgk"| .public.kurento.enableVideoStats = true | .public.kurento.enableListenOnly = true
         - name: MONGO_URL
           value: mongodb://mongo/bbbhtml5
         - name: REDIS_HOST
