@@ -33,3 +33,4 @@ clients/flash/**/.gradle
 **/.idea/*
 *.iml
 *~
+**/.vscode
