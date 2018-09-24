@@ -10,6 +10,7 @@ metadata:
   labels:
     io.kompose.service: bbb-greenlight
   name: bbb-greenlight
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy:
@@ -56,6 +57,7 @@ metadata:
   labels:
     io.kompose.service: greenlight-db
   name: greenlight-db
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce
@@ -72,6 +74,7 @@ metadata:
   labels:
     io.kompose.service: greenlight-logs
   name: greenlight-logs
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce

@@ -10,6 +10,7 @@ metadata:
   labels:
     io.kompose.service: bbb-webhooks
   name: bbb-webhooks
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy: {}

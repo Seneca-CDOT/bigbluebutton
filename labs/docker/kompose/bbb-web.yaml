@@ -10,6 +10,7 @@ metadata:
   labels:
     io.kompose.service: bbb-web
   name: bbb-web
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy:
@@ -51,6 +52,7 @@ metadata:
   labels:
     io.kompose.service: bigbluebutton
   name: bigbluebutton
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce

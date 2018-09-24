@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: kurento
   name: kurento
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy:
@@ -50,6 +51,7 @@ metadata:
   labels:
     io.kompose.service: media-screenshare
   name: media-screenshare
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce
@@ -66,6 +68,7 @@ metadata:
   labels:
     io.kompose.service: media-video
   name: media-video
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce

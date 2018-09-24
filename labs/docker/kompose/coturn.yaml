@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: coturn
   name: coturn
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy: {}
@@ -50,6 +51,7 @@ metadata:
   labels:
     io.kompose.service: coturn
   name: coturn
+  namespace: bigbluebutton
 spec:
   ports:
   - name: "3478"

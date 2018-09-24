@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: traefik
   name: traefik
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy:
@@ -80,6 +81,7 @@ metadata:
   labels:
     io.kompose.service: traefik
   name: traefik
+  namespace: bigbluebutton
 spec:
   ports:
   - name: "80"
@@ -104,6 +106,7 @@ metadata:
   labels:
     io.kompose.service: traefik-acme
   name: traefik-acme
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce
@@ -120,6 +123,7 @@ metadata:
   labels:
     io.kompose.service: traefik-claim1
   name: traefik-claim1
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce

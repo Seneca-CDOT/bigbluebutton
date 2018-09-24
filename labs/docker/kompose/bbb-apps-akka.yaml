@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: bbb-apps-akka
   name: bbb-apps-akka
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy: {}

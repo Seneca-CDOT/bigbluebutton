@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: bbb-freeswitch
   name: bbb-freeswitch
+  namespace: bigbluebutton
 spec:
   replicas: 1
   strategy:
@@ -40,6 +41,7 @@ metadata:
   labels:
     io.kompose.service: media-audio
   name: media-audio
+  namespace: bigbluebutton
 spec:
   accessModes:
   - ReadWriteOnce
