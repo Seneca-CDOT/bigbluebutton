@@ -31,7 +31,10 @@ spec:
         - name: ROOT_URL
           value: http://127.0.0.1/html5client
         image: bbb-html5
+        imagePullPolicy: IfNotPresent
         name: bbb-html5
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}

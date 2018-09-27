@@ -31,7 +31,10 @@ spec:
         - name: SHARED_SECRET
           value: 3c9adf27e59c6c4098616a80c90c5b3e
         image: bbb-webhooks
+        imagePullPolicy: IfNotPresent
         name: bbb-webhooks
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}

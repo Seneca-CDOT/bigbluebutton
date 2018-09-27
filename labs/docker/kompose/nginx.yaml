@@ -25,7 +25,10 @@ spec:
         - name: SERVER_DOMAIN
           value: romania.cdot.systems
         image: bbb-nginx
+        imagePullPolicy: IfNotPresent
         name: nginx
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}

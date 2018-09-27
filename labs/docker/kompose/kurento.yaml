@@ -26,6 +26,7 @@ spec:
         - name: KMS_STUN_PORT
           value: "3478"
         image: bbb-kurento
+        imagePullPolicy: IfNotPresent
         name: kurento
         resources: {}
         volumeMounts:
@@ -33,6 +34,8 @@ spec:
           name: media-video
         - mountPath: /var/kurento/screenshare
           name: media-screenshare
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
       volumes:
       - name: media-video

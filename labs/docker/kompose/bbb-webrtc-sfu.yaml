@@ -36,5 +36,7 @@ spec:
         imagePullPolicy: IfNotPresent
         name: bbb-webrtc-sfu
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}

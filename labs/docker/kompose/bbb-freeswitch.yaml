@@ -21,11 +21,14 @@ spec:
     spec:
       containers:
       - image: bbb-freeswitch
+        imagePullPolicy: IfNotPresent
         name: bbb-freeswitch
         resources: {}
         volumeMounts:
         - mountPath: /var/freeswitch/meetings
           name: media-audio
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
       volumes:
       - name: media-audio

@@ -32,6 +32,7 @@ spec:
         - name: SECRET_KEY_BASE
           value: dfa17b594f8a523695967e6664345d589d5358534d8d56c6839c25cea43f6f1ff3adf7218d8c65278decb5df1ba99217106bd77384b29719dccd8deac81f084f
         image: bigbluebutton/greenlight:v2
+        imagePullPolicy: IfNotPresent
         name: bbb-greenlight
         resources: {}
         volumeMounts:
@@ -39,6 +40,8 @@ spec:
           name: greenlight-db
         - mountPath: /usr/src/app/log
           name: greenlight-logs
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
       volumes:
       - name: greenlight-db

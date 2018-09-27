@@ -288,6 +288,10 @@ source <(kubectl completion bash)
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 ```
 
+#### Install kompose
+
+https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/#install-kompose
+
 #### Create a single master cluster with kubeadm + Flannel
 IMPORTANT: the `kubeadm init` command will generate a join command towards the end of the output, make note of that command as you'll need it to join nodes to your cluster later on
 ```
@@ -345,4 +349,43 @@ Use the join command that was generated from `kubeadm init` earlier to add nodes
 
 ## Deploy
 
-https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/
+Create the bigbluebutton namespace in the cluster:
+```
+kubectl create -f ~/bigbluebutton/labs/k8s/bigbluebutton-ns.yaml
+```
+Deploy all kuberenetes objects automatically:
+```
+cd ~/bigbluebutton/labs/kompose && kompose up
+```
+Kill all automatic deployments:
+```
+cd ~/bigbluebutton/labs/kompose && kompose down
+```
+Deploy kubernetes objects manually:
+```
+kubectl apply -f <file>.yaml
+```
+Monitor your cluster either via Dashboard or through CLI. CLI reference sheet:
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+
+
+## Tear Down
+
+Check which nodes exist in the cluster either through the Kubernetes Dashboard or by:
+```
+kubectl get nodes
+```
+From the Master node, drain and delete all other nodes in the cluster:
+```
+sudo kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
+sudo kubectl delete node <node name>
+```
+On each node being removed:
+```
+sudo kubeadm reset
+```
+Finally on the master node:
+```
+sudo kubeadm reset
+```

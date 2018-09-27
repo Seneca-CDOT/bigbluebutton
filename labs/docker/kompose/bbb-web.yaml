@@ -32,11 +32,14 @@ spec:
         - name: TURN_SECRET
           value: c3c269f9fd030b48a5e2eda5c265744a
         image: bbb-web
+        imagePullPolicy: IfNotPresent
         name: bbb-web
         resources: {}
         volumeMounts:
         - mountPath: /var/bigbluebutton
           name: bigbluebutton
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
       volumes:
       - name: bigbluebutton

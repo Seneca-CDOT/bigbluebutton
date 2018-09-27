@@ -31,12 +31,15 @@ spec:
         - name: TURN_DOMAIN
           value: romania.cdot.systems
         image: bbb-coturn
+        imagePullPolicy: IfNotPresent
         name: coturn
         ports:
         - containerPort: 3478
           protocol: UDP
         - containerPort: 3478
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}
 

@@ -49,6 +49,7 @@ spec:
         - '-'
         - --entryPoints=Name:https Address::443 TLS
         image: traefik
+        imagePullPolicy: IfNotPresent
         name: traefik
         ports:
         - containerPort: 80
@@ -60,6 +61,8 @@ spec:
           name: traefik-acme
         - mountPath: /var/run/docker.sock
           name: traefik-claim1
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
       volumes:
       - name: traefik-acme

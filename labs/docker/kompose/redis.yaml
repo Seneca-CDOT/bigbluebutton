@@ -20,7 +20,10 @@ spec:
     spec:
       containers:
       - image: redis
+        imagePullPolicy: IfNotPresent
         name: redis
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}

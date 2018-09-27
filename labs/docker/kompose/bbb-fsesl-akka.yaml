@@ -30,7 +30,10 @@ spec:
         - name: JAVA_OPTS
           value: -Dredis.host=redis -Dfreeswitch.esl.host=bbb-freeswitch
         image: bbb-fsesl-akka
+        imagePullPolicy: IfNotPresent
         name: bbb-fsesl-akka
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}

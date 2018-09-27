@@ -26,5 +26,7 @@ spec:
         imagePullPolicy: IfNotPresent
         name: bbb-apps-akka
         resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
       restartPolicy: Always
 status: {}
