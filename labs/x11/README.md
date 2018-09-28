@@ -5,9 +5,27 @@ The goal of this is to capture video and audio from a BBB meeeting, pass it into
 At a later stage, Chat and Polling from the BigBlueButton meeting will be reintegrated so that users are able to participate.
 
 
-### Sample ffmpeg command
+### Setup
+
+#### Install XVFB (X Virtual Frame Buffer)
+```
+sudo dnf install xorg-x11-server-Xvfb
+```
+
+#### Install ffmpeg
+Add the RPMFusion repositories
+```
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+```
+
+Install ffmpeg
+```
+sudo dnf install ffmpeg ffmpeg-devel
+```
+
+### Run
 
 ```
-ffmpeg -f openal -i 'Monitor of Dummy Output' -framerate 12 -s 1920x1080 -f x11grab -i :#{@display}+12,77 -g 24 -preset veryfast -tune zerolatency -r 12  -c:v libx264 -crf 24 -pix_fmt yuv420p -b 300k -f flv rtmp://dev110.bigbluebutton.org/screenshare/foo/room2
+./capture-display.sh
 ```
 
