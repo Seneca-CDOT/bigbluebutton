@@ -1,0 +1,49 @@
+@import "/imports/ui/stylesheets/variables/_all";
+
+.container {
+  display: flex;
+  flex-flow: row;
+
+  > * {
+    margin: 0 $sm-padding-x;
+
+    @include mq($small-only) {
+      margin: 0 $sm-padding-y;
+    }
+
+    span:first-child {
+      box-shadow: 0 2px 5px 0 rgb(0, 0, 0);
+    }
+  }
+
+  > :first-child {
+    margin-left: 0;
+  }
+
+  > :last-child {
+    margin-right: 0;
+  }
+}
+
+.button {
+  &:focus {
+    outline: none !important;
+  }
+
+  &.glow {
+    animation: pulse 1s infinite ease-in;
+    border-radius: 50%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 white;
+  }
+  70% {
+    box-shadow: 0 0 0 0.5625rem transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}

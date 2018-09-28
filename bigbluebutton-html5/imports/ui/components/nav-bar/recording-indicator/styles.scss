@@ -1,0 +1,63 @@
+@import "../../../stylesheets/variables/_all";
+
+%baseIndicator {
+  position: relative;
+  display: inline-block;
+  width: $font-size-base;
+  height: $font-size-base;
+  border-radius: 50%;
+  border: 1px solid $color-white;
+
+  &:after {
+    content: '';
+    width: $font-size-base / 2;
+    height: $font-size-base / 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -($font-size-base / 4);
+    margin-left: -($font-size-base / 4);
+    border-radius: 50%;
+    background-color: $color-danger;
+  }
+}
+
+%baseIndicatorLabel {
+  font-weight: 200;
+  font-size: $font-size-base;
+  margin: 0 0 0 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  max-width: 20vw;
+ 
+}
+
+.recordIndicator {
+  @extend %baseIndicator;
+}
+
+.notRecording {
+  @extend %baseIndicator;
+  border: 1px solid $color-gray;
+
+  &:after {
+    background-color: $color-gray;
+  }
+
+}
+
+.recordingLabel {
+  @extend %baseIndicatorLabel;
+  color: $color-white;
+}
+
+.notRecordingLabel {
+  @extend %baseIndicatorLabel;
+  color: $color-gray;
+}
+
+.recordState {
+  display: flex;
+}

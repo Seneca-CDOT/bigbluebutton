@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-freeswitch
+  name: bbb-freeswitch
+  namespace: bigbluebutton
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-freeswitch
+    spec:
+      containers:
+      - image: bbb-freeswitch
+        imagePullPolicy: IfNotPresent
+        name: bbb-freeswitch
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/freeswitch/meetings
+          name: media-audio
+      nodeSelector:
+        kubernetes.io/hostname: aws0
+      restartPolicy: Always
+      volumes:
+      - name: media-audio
+        persistentVolumeClaim:
+          claimName: media-audio
+status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: media-audio
+  name: media-audio
+  namespace: bigbluebutton
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}

@@ -1,0 +1,54 @@
+@import "../../stylesheets/variables/_all";
+
+.pollingContainer {
+  order: 2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 5px;
+
+  @include mq($medium-up) {
+    padding-bottom: 10px;
+  }
+}
+
+.pollingTitle {
+  color: $color-white;
+  white-space: nowrap;
+  padding-bottom: 10px;
+}
+
+.pollingAnswers {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.pollButtonWrapper {
+  text-align: center;
+  margin-left: 5px;
+  overflow: hidden;
+
+  @include mq($medium-up) {
+    margin-left: 10px;
+  }
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+}
+
+.pollingButton {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hidden {
+  display: none;
+}

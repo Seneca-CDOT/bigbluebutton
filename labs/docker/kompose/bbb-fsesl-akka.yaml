@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bbb-fsesl-akka
+  name: bbb-fsesl-akka
+  namespace: bigbluebutton
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: bbb-fsesl-akka
+    spec:
+      containers:
+      - args:
+        - wait-for-it.sh
+        - bbb-freeswitch:8021
+        - --timeout=60
+        - --strict
+        - --
+        - /usr/share/bbb-fsesl-akka/bin/bbb-fsesl-akka
+        env:
+        - name: JAVA_OPTS
+          value: -Dredis.host=redis -Dfreeswitch.esl.host=bbb-freeswitch
+        image: bbb-fsesl-akka
+        imagePullPolicy: IfNotPresent
+        name: bbb-fsesl-akka
+        resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
+      restartPolicy: Always
+status: {}

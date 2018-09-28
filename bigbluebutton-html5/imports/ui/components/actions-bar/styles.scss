@@ -1,0 +1,46 @@
+@import "/imports/ui/stylesheets/variables/_all";
+
+.actionsbar,
+.left,
+.center {
+  display: flex;
+  flex-direction: row;
+}
+
+.left,
+.center {
+  flex: 1;
+  justify-content: center;
+
+  > * {
+    margin: 0 $sm-padding-x;
+
+    @include mq($small-only) {
+      margin: 0 $sm-padding-y;
+    }
+  }
+}
+
+.left {
+  position: absolute;
+  @include mq($small-only) {
+    bottom: $sm-padding-x;
+    left: $sm-padding-x;
+  }
+}
+
+.centerWithActions {
+  @include mq($xsmall-only) {
+    justify-content: flex-end;
+  }
+}
+
+.button {
+  &:focus {
+    outline: none !important;
+  }
+
+  span:first-child {
+    box-shadow: 0 2px 5px 0 rgb(0, 0, 0);
+  }
+}

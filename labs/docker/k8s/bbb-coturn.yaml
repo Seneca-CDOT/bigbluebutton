@@ -1,0 +1,67 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: bbb-coturn
+    version: latest
+  name: bbb-coturn
+  namespace: bigbluebutton
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bbb-coturn
+      version: latest
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: bbb-coturn
+        version: latest
+      name: bbb-coturn
+    spec:
+      containers:
+      - env:
+        - name: PORT
+          value: "3478"
+        - name: SERVER_DOMAIN
+          value: (FQDN HERE)
+        - name: SECRET # SHARED_SECRET?
+          value: "12345"
+        - name: EXTERNAL_IP
+          value: "0.0.0.0"
+        - name: ENABLE_REST_API
+          value: "1"
+        image: bbb-coturn
+        imagePullPolicy: IfNotPresent
+        name: bbb-coturn
+        resources: {}
+        ports:
+        - containerPort: 3478
+          protocol: TCP
+        - containerPort: 3478
+          protocol: UDP
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        kubernetes.io/hostname: aws0
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bbb-coturn
+  namespace: bigbluebutton
+  annotations:
+    traefik.backend.circuitbreaker: "NetworkErrorRatio() > 0.5"
+spec:
+  ports:
+  - name: http
+    targetPort: 3478
+    port: 3478
+  selector:
+    app: bbb-coturn

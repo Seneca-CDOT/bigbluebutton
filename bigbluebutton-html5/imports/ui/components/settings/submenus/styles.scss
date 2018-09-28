@@ -1,0 +1,136 @@
+@import '/imports/ui/stylesheets/mixins/focus';
+@import '/imports/ui/stylesheets/variables/_all';
+
+.title {
+  color: $color-gray-dark;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+}
+
+.form {
+  display: flex;
+  flex-flow: column;
+}
+
+.row {
+  display: flex;
+  flex-flow: row;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
+
+.col {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-right: 1rem;
+
+  &:last-child {
+    margin-right: 0;
+    padding-right: 0.1rem;
+  }
+}
+
+.label {
+  color: $color-gray-label;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.labelSmall {
+  color: $color-link;
+  font-size: 0.7rem;
+  margin-bottom: 0.3rem;
+}
+
+.formElement {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+}
+
+.select {
+  @include elementFocus($color-primary);
+
+  background-color: $color-white;
+  border: $border-size solid $color-white;
+  border-radius: $border-size;
+  border-bottom: 0.1rem solid $color-gray-lighter;
+  color: $color-gray-label;
+  width: 100%;
+  height: 1.75rem;
+  padding: 1px;
+}
+
+.pullContentRight {
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: row;
+}
+
+.pullContentCenter {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
+.separator {
+  margin: 2.5rem 0;
+  border: 1px solid $color-gray-lighter;
+  opacity: 0.25;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.spacedLeft {
+  margin-left: 1rem;
+}
+
+.swatch {
+  @include elementFocus($color-primary);
+
+  position: absolute;
+  float: right;
+  background: $color-white;
+  border-radius: $border-size;
+  border: $border-size solid $color-gray-light;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.swatchInner {
+  width: 3rem;
+  height: 1.1rem;
+  border-radius: $border-size;
+}
+
+.colorPickerOverlay {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.colorPickerPopover {
+  position: absolute;
+  top: 2rem;
+  z-index: 1001;
+}
+
+.ccPreviewBox {
+  height: 100px;
+  padding: 5px;
+  border: 1px solid #f1f1f1;
+  overflow: auto;
+}

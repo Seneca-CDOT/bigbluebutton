@@ -1,0 +1,45 @@
+@import "/imports/ui/stylesheets/variables/_all";
+@import "/imports/ui/stylesheets/mixins/_scrollable";
+
+$padding: $md-padding-x;
+
+.messageListWrapper {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-left: $padding;
+  margin-left: -$padding;
+  padding-right: $padding;
+  margin-right: -$padding;
+  padding-bottom: $padding;
+  margin-bottom: -$padding;
+}
+
+.messageList {
+  @include scrollbox-vertical();
+  flex-flow: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin-right: -$sm-padding-x;
+  padding-right: $padding;
+  padding-top: 0;
+  &:after {
+    content: "";
+    display: block;
+    height: $padding;
+  }
+}
+
+.unreadButton {
+  flex-shrink: 0;
+  width: 100%;
+  text-transform: uppercase;
+  // margin-top: .25rem;
+  margin-bottom: .25rem;
+  background-color: darken($color-white, 5%);
+  @extend %text-elipsis;
+}

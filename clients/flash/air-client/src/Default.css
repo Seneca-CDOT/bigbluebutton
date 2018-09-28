@@ -1,0 +1,227 @@
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace libChat "org.bigbluebutton.lib.chat.views.*";
+@namespace main "org.bigbluebutton.air.main.views.*";
+@namespace participants "org.bigbluebutton.lib.participants.views.*";
+@namespace users "org.bigbluebutton.lib.user.views.*";
+@namespace settings "org.bigbluebutton.lib.settings.views.*";
+@namespace audio "org.bigbluebutton.lib.settings.views.audio.*";
+@namespace chat "org.bigbluebutton.lib.settings.views.chat.*";
+@namespace lock "org.bigbluebutton.lib.settings.views.lock.*";
+@namespace camera "org.bigbluebutton.lib.settings.views.camera.*";
+
+@font-face { 
+	src        : url("../../shared/assets/fonts/SourceSansPro/SourceSansPro-Regular.ttf");
+	fontFamily : SourceSansPro;
+	fontStyle  : normal;
+	fontWeight : normal;
+	embedAsCFF : true;
+}
+
+@font-face { 
+	src        : url("../../shared/assets/fonts/SourceSansPro/SourceSansPro-Semibold.ttf");
+	fontFamily : SourceSansPro;
+	fontStyle  : normal;
+	fontWeight : bold;
+	embedAsCFF : true;
+}
+
+@font-face { 
+	src        : url("../../shared/assets/fonts/SourceSansPro/SourceSansPro-Italic.ttf");
+	fontFamily : SourceSansPro;
+	fontStyle  : italic;
+	fontWeight : normal;
+	embedAsCFF : true;
+}
+
+@font-face { 
+	src        : url("../../shared/assets/fonts/SourceSansPro/SourceSansPro-Bold.ttf");
+	fontFamily : SourceSansPro;
+	fontStyle  : normal;
+	fontWeight : heavy;
+	embedAsCFF : true;
+}
+
+@font-face { 
+	src        : url("../../shared/assets/fonts/SourceSansPro/SourceSansPro-Regular.ttf");
+	fontFamily : SourceSansProMX;
+	fontStyle  : normal;
+	fontWeight : normal;
+	embedAsCFF : false;
+}
+
+
+/* Shared styles */
+
+global {
+	font-family : SourceSansPro;
+}
+
+/* Classes */
+
+s|Application {
+	backgroundColor : PropertyReference("bbbBlack");	
+}
+
+/* Loading screen */
+main|LoadingScreen {
+	color           : PropertyReference("white");	
+	backgroundColor : PropertyReference("bbbBlack");
+	textAlign       : center;
+}
+
+/* Main view */
+
+main|MainView {
+	backgroundColor : PropertyReference("bbbBlack");	
+}
+
+main|TopToolbarAIR {
+	backgroundColor : PropertyReference("bbbBlack");
+}
+
+participants|ParticipantsViewBase, users|UsersViewBase {
+	backgroundColor : PropertyReference("grey100");
+	color : PropertyReference("blue900");
+}
+
+settings|SettingsViewBase, audio|AudioSettingsViewBase, chat|ChatSettingsViewBase, lock|LockSettingsViewBase, camera|CameraSettingsViewBase {
+	color            : PropertyReference("grey700");
+	headerBackground : PropertyReference("blue500");
+	separatorColor   : PropertyReference("grey200");
+}
+
+participants|ParticipantsViewBase s|List{
+	contentBackgroundColor : PropertyReference("white");
+}
+
+libChat|ChatViewBase {
+	inputBackgroundColor : PropertyReference("grey100");
+	inputBorderColor     : PropertyReference("grey300");
+}
+
+s|ToggleSwitch {
+	accentColor : PropertyReference("green500");
+	color       : PropertyReference("white");
+	skinClass   : ClassReference("org.bigbluebutton.air.common.views.skins.MobileToggleSwitchSkin");
+}
+
+s|HSlider {
+	skinClass   : ClassReference("spark.skins.ios7.HSliderSkin");
+}
+
+s|CheckBox {
+	skinClass   : ClassReference("org.bigbluebutton.air.common.views.skins.MobileCheckBoxSkin");
+	chromeColor : PropertyReference("white");
+}
+
+.sectionTitle {
+	backgroundColor : PropertyReference("grey100");
+	color           : PropertyReference("grey700");
+}
+
+.participantTitle {
+	color : PropertyReference("blue900");
+}
+
+.participantStatus {
+	color : PropertyReference("grey700");
+}
+
+libChat|NewMessagesIndicator {
+	backgroundColor : PropertyReference("bbbRed");
+	backgroundAlpha : 1;
+	color           : PropertyReference("white");
+	skinClass       : ClassReference("org.bigbluebutton.lib.chat.views.skins.NewMessagesIndicatorSkin");
+}
+
+libChat|ChatItemRenderer {
+	color     : PropertyReference("grey700");
+	nameColor : PropertyReference("blue900");
+}
+
+users|UserItemRenderer {
+	color    : PropertyReference("grey700");
+}
+
+settings|SettingsItemRenderer {
+	color     : PropertyReference("blue900");
+	iconColor : PropertyReference("grey700");
+}
+
+.subViewContent {
+	backgroundColor : PropertyReference("white");
+}
+
+.titleLabel {
+	color : PropertyReference("white");
+}
+
+.topButton, .chatIcon, .settingsIcon {
+	iconColor  : PropertyReference("white");
+	fontFamily : BBBIcons;
+	skinClass  : ClassReference("org.bigbluebutton.lib.main.views.skins.TopButtonSkin");
+}
+
+.actionButton {
+	color                   : PropertyReference("white");
+	cornerRadius            : 5;
+	backgroundColor         : PropertyReference("blue500");
+	borderColor             : PropertyReference("white");
+	selectedBackgroundColor : PropertyReference("blue900");
+	skinClass               : ClassReference("org.bigbluebutton.lib.main.views.skins.ActionButtonSkin");
+}
+
+.saveButton {
+	color      : PropertyReference("white");
+	fontWeight : normal;
+	skinClass  : ClassReference("org.bigbluebutton.lib.main.views.skins.SaveButtonSkin");
+}
+
+.settingsIcon {
+	iconColor  : PropertyReference("grey700");
+}
+
+.chatIcon {
+	color : PropertyReference("grey700");
+}
+
+.menuButton {
+	backgroundColor         : PropertyReference("bbbBlue");
+	selectedBackgroundColor : PropertyReference("bbbGrey");
+	color                   : PropertyReference("white");
+	iconFont				: BBBIcons;
+	iconColor    	    	: PropertyReference("white");
+	skinClass               : ClassReference("org.bigbluebutton.lib.main.views.skins.MenuButtonSkin");
+}
+
+.participantIcon {
+	color       : PropertyReference("grey700");
+	circleColor : PropertyReference("grey700");
+}
+
+.participantIconSettings {
+	color       : PropertyReference("white");
+	circleColor : PropertyReference("white");
+}
+
+.sendButton {
+	color       : PropertyReference("blue500");
+	fontFamily  : BBBIcons;
+	borderColor : PropertyReference("blue500");
+	skinClass   : ClassReference("org.bigbluebutton.lib.chat.views.skins.SendButtonSkin");
+}
+
+.messageInput {
+	fontFamily             : SourceSansProMX;
+	contentBackgroundAlpha : 0;
+	skinClass              : ClassReference("org.bigbluebutton.air.chat.views.skins.MessageInputSkin");
+}
+
+.content {
+	color : PropertyReference("bbbBlack");
+}
+
+.leaveLabel {
+	color : PropertyReference("blue500");
+}

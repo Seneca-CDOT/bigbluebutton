@@ -1,0 +1,97 @@
+@import "/imports/ui/components/button/styles.scss";
+@import "/imports/ui/stylesheets/variables/_all";
+
+$controls-color: $color-gray !default;
+$controls-background: $color-white !default;
+$toolbar-button-border-radius: 5px;
+
+.presentationToolbarWrapper,
+.zoomWrapper {
+  order: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.presentationToolbarWrapper {
+  position: absolute;
+  bottom: .8rem;
+  box-shadow: 0 0 10px -2px rgba(0, 0, 0, .25);
+  border-radius: $toolbar-button-border-radius;
+  align-self: center;
+  justify-content: center;
+  z-index: 1;
+
+  @include mq("#{$landscape} and (max-height:#{upper-bound($small-range)}), #{$small-only}") {
+    transform: scale(.75);
+    transform-origin: bottom;
+  }
+
+  button,
+  select,
+  > div {
+    background-color: $controls-background;
+    color: $controls-color;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+    height: 2.25rem;
+    box-shadow: none !important;
+    border: 0;
+  }
+
+  i {
+    font-weight: bolder;
+    color: $color-gray;
+  }
+
+
+
+  button:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  button:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.zoomWrapper {
+  border-radius: 0 5px 5px 0;
+  justify-content: space-between;
+  width: 11.5%;
+  min-width: 175px;
+}
+
+.zoomWrapperNoBorder {
+  border-right: 0 !important;
+}
+
+.skipSlide,
+.prevSlide {
+  border: none !important;
+  width: 2.8rem;
+
+  &[aria-disabled="true"] {
+    opacity: 1;
+    background-color: $color-gray-lighter;
+  }
+}
+
+.skipSlideSelect {
+  padding: 0 0.8%;
+  border-left: $border-size solid $color-gray-lighter !important;
+  border-right: $border-size solid $color-gray-lighter !important;
+}
+
+.zoomSlider {
+  width: 50%;
+}
+
+.zoomMinMax {
+  font-weight: normal;
+}

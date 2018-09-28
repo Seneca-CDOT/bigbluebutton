@@ -1,0 +1,193 @@
+@import "/imports/ui/stylesheets/variables/_all";
+
+$navbar-height: 63px; // TODO: Change to NavBar real height
+$actionsbar-height: 75px; // TODO: Change to ActionsBar real height
+$bars-padding: $lg-padding-x - .45rem; // -.45 so user-list and chat title is aligned with the presentation title
+$userlist-handle-width: 5px; // 5px so user-list and chat resize handle render as the same size
+
+.main {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  position: relative;
+  text-align: center;
+
+  font-size: 1.5rem;
+  padding: $bars-padding;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+
+  @include mq($medium-up) {
+    flex-direction: row;
+  }
+}
+
+%full-page {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @include mq($small-only) {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  @include mq($medium-up) {
+    position: relative;
+  }
+}
+
+.content {
+  @extend %full-page;
+  order: 3;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 50%;
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+  }
+
+  &:before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .45) -20%, transparent 20%);
+  }
+
+  &:after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .45) -20%, transparent 20%);
+  }
+
+  &:hover,
+  &:active {
+    &:before,
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  @include mq($medium-up) {
+    flex: 5;
+    order: 2;
+  }
+}
+
+
+.userList {
+  @extend %full-page;
+  @extend %text-elipsis;
+
+  z-index: 2;
+  overflow: visible;
+
+  order: 1;
+
+  @include mq($small-only) {
+    top: $navbar-height;
+  }
+
+  @include mq($medium-up) {
+    flex: 0 15vw;
+    order: 1;
+  }
+
+  @include mq($xlarge-up) {
+    flex-basis: 10vw;
+  }
+}
+
+.userlistPad {
+  background-color: $color-off-white;
+  width: $userlist-handle-width;
+}
+
+.compact {
+  flex-basis: 4.6rem;
+}
+
+.chat {
+  @extend %full-page;
+
+  order: 2;
+  height: 100%;
+  @include mq($small-only) {
+    z-index: 3;
+    height: auto;
+    top: $navbar-height;
+    overflow: visible;
+  }
+
+  @include mq($medium-up) {
+    flex: 0 25vw;
+    order: 1;
+  }
+
+  @include mq($xlarge-up) {
+    flex-basis: 20vw;
+  }
+}
+
+.sidebar {
+  @extend %full-page;
+  z-index: 4;
+
+  @include mq($medium-up) {
+    flex: 0 15vw;
+    order: 2;
+  }
+}
+
+.media {
+  @extend %full-page;
+  flex: 1 100%;
+  order: 2;
+  flex-direction: row;
+  position: relative;
+
+  @include mq($portrait) {
+    flex-direction: column;
+  }
+}
+
+.closedCaptionBox {
+  position: relative;
+  flex-basis: 15vw;
+  order: 2;
+
+  @include mq($portrait) {
+    min-height: 35%;
+  }
+}
+
+.closedCaptions {
+  order: 3;
+  flex-basis: 20%;
+  max-width: 20%;
+}
+
+.actionsbar {
+  flex: 1;
+  padding: $bars-padding;
+  position: relative;
+  order: 3;
+}

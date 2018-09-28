@@ -1,0 +1,137 @@
+@import "/imports/ui/stylesheets/variables/_all";
+@import "/imports/ui/stylesheets/mixins/_scrollable";
+
+/* Variables
+ * ==========
+ */
+
+$unread-messages-bg: $color-danger;
+$user-list-text: $color-gray;
+$user-list-bg: $color-off-white;
+
+$user-thumbnail-border: $color-gray-light;
+$user-thumbnail-text: $user-thumbnail-border;
+
+$voice-user-bg: $color-success;
+$voice-user-text: $color-white;
+
+$moderator-text: $color-white;
+$moderator-bg: $color-primary;
+
+$sub-name-color: $color-gray-light;
+
+$user-icons-color: $color-gray-light;
+$user-icons-color-hover: $color-gray;
+
+$list-item-bg-hover: darken($color-off-white, 7%);
+$item-focus-border: $color-blue-lighter;
+
+/* classes for extending
+ * ==========
+ */
+%flex-column {
+  display: flex;
+  flex-flow: column;
+}
+
+%no-margin {
+  margin: 0;
+}
+
+%list-item {
+  display: flex;
+  flex-flow: row;
+  transition: all 0.3s;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  cursor: pointer;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:focus {
+    background-color: $list-item-bg-hover;
+    box-shadow: inset 0 0 0 $border-size $item-focus-border, inset 1px 0 0 1px $item-focus-border;
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $list-item-bg-hover;
+  }
+
+}
+
+/* Styling
+ * ==========
+ */
+
+.userList {
+  @extend %flex-column;
+  justify-content: flex-start;
+  background-color: $user-list-bg;
+  color: $user-list-text;
+  height: 100vh;
+  padding-top: $md-padding-x;
+}
+
+.lists {
+  @extend %flex-column;
+  @extend %no-margin;
+  padding: 0;
+  outline: none;
+}
+
+.participantsList,
+.chatsList {
+  @extend .lists;
+  overflow-x: hidden;
+  flex-shrink: 1;
+}
+
+.participants, .messages {
+  flex-grow: 0;
+  display: flex;
+  flex-flow: column;
+  flex-shrink: 0;
+}
+
+.messages {
+  max-height: 30vh;
+}
+
+.participants {
+  flex-basis: 31rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: ($lg-padding-x / 2);
+}
+
+.smallTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0 $sm-padding-x;
+  margin: 0 0 ($lg-padding-x / 2) 0;
+  color: $color-gray-light;
+}
+
+.enter, .appear {
+  opacity: 0.01;
+}
+
+.enterActive, .appearActive {
+  opacity: 1;
+  transition: all 600ms;
+}
+
+.leave {
+  opacity: 1;
+}
+
+.leaveActive {
+  opacity: 0;
+  transition: all 600ms;
+}

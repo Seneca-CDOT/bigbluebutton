@@ -1,0 +1,56 @@
+@import "../styles.scss";
+@import "/imports/ui/stylesheets/variables/_all";
+
+.chatListItem {
+  @extend %list-item;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  color: $color-gray-dark;
+}
+
+.chatListItemLink {
+  display: flex;
+  flex-grow: 1;
+  text-decoration: none;
+  padding-left: $sm-padding-x / 2;
+  padding-right: $sm-padding-x;
+  padding-top: $sm-padding-y;
+  padding-bottom: $sm-padding-y;
+  width: 100%;
+
+  .chatListItem:first-child > & {
+    padding-top: $sm-padding-y * 1.85;
+    padding-bottom: $sm-padding-y * 1.85;
+  }
+}
+
+.chatIcon {
+  flex: 0 0 2.2rem;
+}
+
+.chatName {
+  @extend %flex-column;
+  @extend %text-elipsis;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.chatNameMain {
+  @extend %no-margin;
+  @extend %text-elipsis;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-left: $sm-padding-x;
+  margin-right: $sm-padding-x;
+  position: relative;
+  top: $md-padding-y;
+  padding: .5rem 0;
+  margin-top: -.5rem;
+}
+
+.active {
+  background-color: $list-item-bg-hover;
+  box-shadow: inset 0 0 0 $border-size $item-focus-border, inset 1px 0 0 1px $item-focus-border;
+  outline: none;
+}

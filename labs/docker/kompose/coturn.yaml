@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: coturn
+  name: coturn
+  namespace: bigbluebutton
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: coturn
+    spec:
+      containers:
+      - env:
+        - name: ENABLE_REST_API
+          value: "1"
+        - name: EXTERNAL_IP
+          value: 206.47.241.9
+        - name: PORT
+          value: "3478"
+        - name: SECRET
+          value: c3c269f9fd030b48a5e2eda5c265744a
+        - name: TURN_DOMAIN
+          value: romania.cdot.systems
+        image: bbb-coturn
+        imagePullPolicy: IfNotPresent
+        name: coturn
+        ports:
+        - containerPort: 3478
+          protocol: UDP
+        - containerPort: 3478
+        resources: {}
+      nodeSelector:
+        kubernetes.io/hostname: aws0
+      restartPolicy: Always
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: coturn
+  name: coturn
+  namespace: bigbluebutton
+spec:
+  ports:
+  - name: "3478"
+    port: 3478
+    protocol: UDP
+    targetPort: 3478
+  - name: 3478-tcp
+    port: 3478
+    targetPort: 3478
+  selector:
+    io.kompose.service: coturn
+status:
+  loadBalancer: {}
