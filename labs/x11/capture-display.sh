@@ -2,15 +2,15 @@
 
 function cleanup {
 echo "Cleaning up..."
-xserver_pid=$(ps aux | grep `cat /tmp/.X1-lock` | tail -n1 | rev | cut -d ' ' -f 1 | rev)
 
 echo "Closing browser"
 kill $browser_pid
 sleep 1
-echo "Closing xserver"
-kill $xserver_pid
 
 if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
+  echo "Closing xserver"
+  xserver_pid=$(ps aux | grep `cat /tmp/.X${DISPLAY:1}-lock` | tail -n1 | rev | cut -d ' ' -f 1 | rev)
+  kill $xserver_pid
   rm -rf /tmp/.X${DISPLAY:1}-lock
 fi
 
