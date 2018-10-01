@@ -1,12 +1,18 @@
 #!/usr/bin/bash
 
 function cleanup {
-echo "Cleaning up"
-kill $browser_pid $xserver_pid >&/dev/null
+echo "Cleaning up..."
+xserver_pid=$(ps aux | grep `cat /tmp/.X1-lock` | tail -n1 | rev | cut -d ' ' -f 1 | rev)
 
-#if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
-#  rm -rf /tmp/.X${DISPLAY:1}-lock
-#fi
+echo "Closing browser"
+kill $browser_pid
+sleep 1
+echo "Closing xserver"
+kill $xserver_pid
+
+if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
+  rm -rf /tmp/.X${DISPLAY:1}-lock
+fi
 
 echo "Exiting"
 }
@@ -18,7 +24,6 @@ DURATION=5
 
 # Start the X server
 Xvfb $DISPLAY -screen 0 640x480x24 -ac &
-xserver_pid=$!
 
 # Run a browser to capture
 firefox &
