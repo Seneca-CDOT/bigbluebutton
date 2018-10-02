@@ -1,0 +1,15 @@
+{
+  "name": "share-meeting",
+  "version": "1.0.0",
+  "description": "Sends output of a BigBlueButton meeting to a Xvfb server",
+  "main": "share-meeting.js",
+  "scripts": {
+    "start": "node share-meeting.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthew Marangoni",
+  "license": "MIT",
+  "dependencies": {
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  }
+}
