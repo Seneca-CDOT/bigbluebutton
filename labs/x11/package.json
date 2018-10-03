@@ -5,7 +5,7 @@
   "main": "share-meeting.js",
   "scripts": {
     "start": "node share-meeting.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha share-meeting"
   },
   "author": "Matthew Marangoni",
   "license": "MIT",

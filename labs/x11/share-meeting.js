@@ -1,13 +1,24 @@
-var webdriver = require('selenium-webdriver');
+var assert = require('assert');
+var webdriver = require('selenium-webdriver'),
+    { describe, it, after, before } = require('selenium-webdriver/testing');
+    By = webdriver.By,
+    until = webdriver.until;
+    var driver;
 
-var browser = new webdriver.Builder().withCapabilities(webdriver.Capabilities.firefox()).build();
+describe('library app scenarios', function() {
+    beforeEach(function() {
+        driver = new webdriver.Builder().forBrowser('firefox').build();
+        // Edit meeting room invitation link below
+        driver.get('https://romania.cdot.systems/b/tes-pez-xew');
+    });
 
-browser.get('https://www.google.com');
+    afterEach(function(){
+        driver.quit();
+    });
 
-var promise = browser.getTitle();
+    it('joins a meeting via Greenlight', function(){
+        var joinBtn = driver.findElement(By.className('button_to'));
+        joinBtn.click();
+    });
 
-promise.then(function(title) {
-    console.log(title);
-});
-
-browser.quit();
+})
