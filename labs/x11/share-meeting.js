@@ -1,11 +1,9 @@
-var assert = require('assert');
-var webdriver = require('selenium-webdriver'),
-    { describe, it, after, before } = require('selenium-webdriver/testing');
-    By = webdriver.By,
-    until = webdriver.until;
-    var driver;
+var webdriver = require('selenium-webdriver');
+By = webdriver.By,
+until = webdriver.until;
+var driver;
 
-describe('library app scenarios', function() {
+describe('BBB app scenarios', function() {
     beforeEach(function() {
         driver = new webdriver.Builder().forBrowser('firefox').build();
         // Edit meeting room invitation link below
@@ -13,12 +11,16 @@ describe('library app scenarios', function() {
     });
 
     afterEach(function(){
-        driver.quit();
+        // driver.quit();
     });
 
-    it('joins a meeting via Greenlight', function(){
-        var joinBtn = driver.findElement(By.className('button_to'));
+    it('joins a meeting via Greenlight', function() {
+        let username = "test";
+        var nameField = driver.findElement(By.className('join-form'));
+        nameField.sendKeys(username);
+        var joinBtn = driver.findElement(By.className('btn-primary'));
         joinBtn.click();
+        // var listenOnlyBtn = driver.findElement(By.xpath('//button[2]/span[2]'));
+        // listenOnlyBtn.click();
     });
-
 })
