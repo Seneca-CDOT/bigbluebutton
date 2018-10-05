@@ -2,10 +2,10 @@
   "name": "share-meeting",
   "version": "1.0.0",
   "description": "Sends output of a BigBlueButton meeting to a Xvfb server",
-  "main": "share-meeting.js",
+  "main": "test-join.js",
   "scripts": {
-    "start": "node share-meeting.js",
-    "test": "mocha share-meeting"
+    "start": "node join-meeting",
+    "test": "mocha test-join"
   },
   "author": "Matthew Marangoni",
   "license": "MIT",
