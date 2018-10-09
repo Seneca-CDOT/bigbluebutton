@@ -9,8 +9,8 @@
   },
   "author": "Matthew Marangoni",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "selenium-webdriver": "^4.0.0-alpha.1"
-  }
+  },
+  "devDependencies": {}
 }
