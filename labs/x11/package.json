@@ -5,11 +5,12 @@
   "main": "test-join.js",
   "scripts": {
     "start": "node join-meeting",
-    "test": "mocha test-join"
+    "test": "mocha test-join --timeout 10000"
   },
   "author": "Matthew Marangoni",
   "license": "MIT",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "selenium-webdriver": "^4.0.0-alpha.1"
   }
 }
