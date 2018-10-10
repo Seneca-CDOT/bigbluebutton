@@ -1,4 +1,5 @@
 let webdriver = require('selenium-webdriver');
+const geckodriver = require('geckodriver');
 By = webdriver.By,
 until = webdriver.until;
 let driver = new webdriver.Builder().forBrowser('firefox').build();
@@ -15,7 +16,7 @@ joinBtn.click();
 
 async function clickAfterLoad() {
     let listenOnlyBtn = 
-    await driver.wait(until.elementLocated(By.xpath('//button[2]/span[2]')), 10000);
+    await driver.wait(until.elementLocated(By.css('button[aria-label="Listen Only"]')), 10000);
     await listenOnlyBtn.click();
 }
 clickAfterLoad();
