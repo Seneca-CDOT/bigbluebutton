@@ -5,18 +5,13 @@ until = webdriver.until;
 let driver = new webdriver.Builder().forBrowser('firefox').build();
 
 driver.manage().window().maximize();
-driver.get('https://romania.cdot.systems/b/tes-pez-xew');
+driver.get('https://romania.cdot.systems/b/mat-aeu-e97');
 
-let username = "test";
-let nameField = driver.findElement(By.className('join-form'));
-nameField.sendKeys(username);
-
-let joinBtn = driver.findElement(By.className('btn-primary'));
-joinBtn.click();
-
-async function clickAfterLoad() {
-    let listenOnlyBtn = 
-    await driver.wait(until.elementLocated(By.css('button[aria-label="Listen Only"]')), 10000);
+(async () => {
+    let nameField = await driver.findElement(By.className('join-form'));
+    await nameField.sendKeys("test");
+    let joinBtn = await driver.findElement(By.className('btn-primary'));
+    await joinBtn.click();
+    let listenOnlyBtn = await driver.wait(until.elementLocated(By.css('button[aria-label="Listen Only"]')), 10000);
     await listenOnlyBtn.click();
-}
-clickAfterLoad();
+})()

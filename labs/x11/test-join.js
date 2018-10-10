@@ -1,4 +1,5 @@
 let webdriver = require('selenium-webdriver');
+const geckodriver = require('geckodriver');
 By = webdriver.By,
 until = webdriver.until;
 let driver = new webdriver.Builder().forBrowser('firefox').build();
@@ -30,7 +31,7 @@ describe('BBB HTML5 meeting tests', function() {
         let joinBtn = await driver.findElement(By.className('btn-primary'));
         joinBtn.click();
 
-        let listenOnlyBtn = await driver.wait(until.elementLocated(By.xpath('//button[2]/span[2]')), 10000);
+        let listenOnlyBtn = await driver.wait(until.elementLocated(By.css('button[aria-label="Listen Only"]')), 10000);
         listenOnlyBtn.click();
     });
 });
