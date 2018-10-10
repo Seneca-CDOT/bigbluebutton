@@ -20,13 +20,14 @@ trap cleanup SIGINT SIGTERM EXIT
 
 export DISPLAY=:1
 OUTFILE=/tmp/capture.mp4
-DURATION=5
+DURATION=15
 
 # Start the X server
 Xvfb $DISPLAY -screen 0 640x480x24 -ac &
 
 # Run a browser to capture
-firefox &
+# firefox &
+npm start &
 #google-chrome &
 browser_pid=$!
 

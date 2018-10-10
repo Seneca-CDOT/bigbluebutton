@@ -24,8 +24,16 @@ sudo dnf install ffmpeg ffmpeg-devel
 ```
 
 ### Run
-
 ```
 ./capture-display.sh
 ```
 
+### Tests
+Install mocha
+```
+npm install --global mocha
+```
+Run the tests
+```
+npm test
+```

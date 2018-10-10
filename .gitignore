@@ -34,3 +34,4 @@ clients/flash/**/.gradle
 *.iml
 *~
 **/.vscode
+**/node_modules
