@@ -10,6 +10,7 @@
   "author": "Matthew Marangoni",
   "license": "MIT",
   "dependencies": {
+    "geckodriver": "^1.12.2",
     "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "devDependencies": {}
