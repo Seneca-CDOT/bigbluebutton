@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+# Remove dangling xserver and browser
 function cleanup {
 echo "Cleaning up..."
 
@@ -18,22 +19,33 @@ echo "Exiting"
 }
 trap cleanup SIGINT SIGTERM EXIT
 
+# Display number
 export DISPLAY=:1
+# Output file
 OUTFILE=/tmp/capture.mp4
+# Recording duration (seconds)
 DURATION=15
+# Framerate
+FRAMERATE=12
+# Group Of Pixels (should always be framerate x2)
+GOP=$(($FRAMERATE * 2))
+# Constant Rate Factor (0 (best) - 51 (worst) -- default is 23)
+CRF=24
+# Frame size
+FRAMESIZE=1920x1080
 
 # Start the X server
 Xvfb $DISPLAY -screen 0 640x480x24 -ac &
 
 # Run a browser to capture
-# firefox &
-npm start &
+#firefox &
 #google-chrome &
+npm start &
 browser_pid=$!
 
-# Capture display with ffmpeg for a set duration
+# Remove existing files
 if [ -f $OUTFILE ]; then
   rm $OUTFILE
 fi
-ffmpeg -framerate 12 -s 640x480 -f x11grab -t $DURATION -i $DISPLAY -g 24 -preset veryfast -tune zerolatency -r 12 -c:v libx264 -crf 24 -pix_fmt yuv420p $OUTFILE
-
+# Capture display with ffmpeg
+ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -t $DURATION -i $DISPLAY -g $GOP -preset veryfast -tune zerolatency -r $FRAMERATE -c:v libx264 -crf $CRF -pix_fmt yuv420p $OUTFILE
