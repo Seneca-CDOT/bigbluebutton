@@ -26,20 +26,22 @@ OUTFILE=/tmp/capture.mp4
 # Recording duration (seconds)
 DURATION=15
 # Framerate
-FRAMERATE=12
+FRAMERATE=24
 # Group Of Pixels (should always be framerate x2)
 GOP=$(($FRAMERATE * 2))
 # Constant Rate Factor (0 (best) - 51 (worst) -- default is 23)
-CRF=24
+CRF=23
 # Frame size
 FRAMESIZE=1920x1080
+# URL to navigate to in browser
+URL=https://www.youtube.com/watch?v=6nuEgc2RVWo
 
 # Start the X server
-Xvfb $DISPLAY -screen 0 640x480x24 -ac &
+Xvfb $DISPLAY -screen 0 1920x1080x24 -ac &
 
 # Run a browser to capture
-#firefox &
-#google-chrome &
+# firefox $URL &
+# google-chrome $URL &
 npm start &
 browser_pid=$!
 
@@ -48,4 +50,8 @@ if [ -f $OUTFILE ]; then
   rm $OUTFILE
 fi
 # Capture display with ffmpeg
-ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -t $DURATION -i $DISPLAY -g $GOP -preset veryfast -tune zerolatency -r $FRAMERATE -c:v libx264 -crf $CRF -pix_fmt yuv420p $OUTFILE
+ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -t $DURATION -i $DISPLAY \
+-g $GOP -preset veryfast -tune zerolatency -r $FRAMERATE -c:v libx264 -crf $CRF -pix_fmt yuv420p $OUTFILE
+# Capture with PulseAudio
+# ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -t $DURATION -i $DISPLAY \
+# -f pulse -ac 2 -i default $OUTFILE
