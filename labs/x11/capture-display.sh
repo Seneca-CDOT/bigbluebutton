@@ -24,6 +24,8 @@ export DISPLAY=:1
 # Output file
 OUTFILE=/tmp/capture.mp4
 # Recording duration (seconds)
+# When used as an input option (before -i), limit the duration of data read from the input file
+# When used as an output option (before an output url), stop writing the output after its duration reaches duration.
 DURATION=15
 # Framerate
 FRAMERATE=24
@@ -50,8 +52,8 @@ if [ -f $OUTFILE ]; then
   rm $OUTFILE
 fi
 # Capture display with ffmpeg
-ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -t $DURATION -i $DISPLAY \
--g $GOP -preset veryfast -tune zerolatency -r $FRAMERATE -c:v libx264 -crf $CRF -pix_fmt yuv420p $OUTFILE
+ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -i $DISPLAY \
+-g $GOP -preset veryfast -tune zerolatency -r $FRAMERATE -c:v libx264 -crf $CRF -pix_fmt yuv420p -t $DURATION $OUTFILE
 # Capture with PulseAudio
-# ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -t $DURATION -i $DISPLAY \
-# -f pulse -ac 2 -i default $OUTFILE
+# ffmpeg -framerate $FRAMERATE -s $FRAMESIZE -f x11grab -i $DISPLAY \
+# -f pulse -ac 2 -i default -t $DURATION $OUTFILE
