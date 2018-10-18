@@ -25,7 +25,7 @@ sudo dnf install ffmpeg ffmpeg-devel
 
 ### Run
 ```
-./capture-display.sh
+./capture.sh
 ```
 
 ### Tests
