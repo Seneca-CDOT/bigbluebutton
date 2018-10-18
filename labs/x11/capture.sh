@@ -30,7 +30,7 @@ OUTFILE=/tmp/capture.mkv
 DURATION=15
 # Framerate
 FRAMERATE=24
-# Group of Picture (should always be framerate x2)
+# Group of Pictures (should always be framerate x2)
 GOP=$(($FRAMERATE * 2))
 # Constant Rate Factor [0(best)-51(worst)] -- default is 23
 CRF=23
