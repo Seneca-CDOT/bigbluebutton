@@ -2,21 +2,20 @@
 
 # Remove dangling xserver and browser session
 function cleanup {
-echo "Cleaning up..."
+  echo "Cleaning up..."
+  echo "Closing browser"
+  kill -15 $BROWSER_PID
+  # wmctrl -c firefox
+  sleep 1
 
-echo "Closing browser"
-kill $browser_pid
-# wmctrl -c firefox
-sleep 1
+  if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
+    echo "Closing xserver"
+    XSERVER_PID=$(ps aux | grep `cat /tmp/.X${DISPLAY:1}-lock` | tail -n1 | rev | cut -d ' ' -f 1 | rev)
+    kill $XSERVER_PID
+    rm -rf /tmp/.X${DISPLAY:1}-lock
+  fi
 
-if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
-  echo "Closing xserver"
-  xserver_pid=$(ps aux | grep `cat /tmp/.X${DISPLAY:1}-lock` | tail -n1 | rev | cut -d ' ' -f 1 | rev)
-  kill $xserver_pid
-  rm -rf /tmp/.X${DISPLAY:1}-lock
-fi
-
-echo "Exiting"
+  echo "Exiting"
 }
 trap cleanup SIGINT SIGTERM EXIT
 
@@ -37,9 +36,9 @@ CRF=23
 # Frame size
 FRAMESIZE=1920x1080
 # Encoding speed to compression ratio -- slower presets have better compression
-#[ultrafast/superfast/veryfast/faster/fast/medium(default)/slow/slower/veryslow]
+#[ultrafast|superfast|veryfast|faster|fast|medium(default)|slow|slower|veryslow]
 PRESET=medium
-# Tune [film/animation/grain/stillimage/fastdecode/zerolatency]
+# Tune [film|animation|grain|stillimage|fastdecode|zerolatency]
 TUNE=zerolatency
 # Format 1 -- check with `ffmpeg -formats`
 FMT1=x11grab
@@ -53,19 +52,20 @@ ACODEC=flac
 PIXFMT=yuv420p
 # Audio Channels
 AC=2
-# Alsa device index (obtain from `pacmd list-sources`)
+# Alsa Device Index (obtain from `pacmd list-sources`)
 ADI=2
+# Browser to use [firefox|google-chrome]
+BROWSER=firefox
 # URL to navigate to in browser
 URL=https://www.youtube.com/watch?v=6nuEgc2RVWo
 
 # Start the X server
 Xvfb $DISPLAY -screen 0 1920x1080x24 -ac &
 
-# Run a browser to capture and set the window size
-firefox $URL &
-# google-chrome $URL &
+# Run a browser to capture and set the window size (or use npm script)
+$BROWSER $URL &
 # npm start &
-browser_pid=$!
+BROWSER_PID=$!
 # Maximize the window
 # wmctrl -r firefox -b add,maximized_vert,maximized_horz
 # Fullscreen the window
