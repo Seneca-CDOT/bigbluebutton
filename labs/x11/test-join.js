@@ -24,7 +24,19 @@ describe('BBB HTML5 meeting tests', function() {
     });
 
     it('joins a meeting via Greenlight', async function() {
-        let username = "test";
+        let username = "testbot";
+        let nameField = await driver.findElement(By.className('join-form'));
+        nameField.sendKeys(username);
+
+        let joinBtn = await driver.findElement(By.className('btn-primary'));
+        joinBtn.click();
+
+        let listenOnlyBtn = await driver.wait(until.elementLocated(By.css('button[aria-label="Listen Only"]')), 10000);
+        listenOnlyBtn.click();
+    });
+
+    it('joins a meeting via dev2a', async function() {
+        let username = "testbot";
         let nameField = await driver.findElement(By.className('join-form'));
         nameField.sendKeys(username);
 

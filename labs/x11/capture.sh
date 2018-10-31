@@ -22,8 +22,8 @@ trap cleanup SIGINT SIGTERM EXIT
 
 # Display number
 export DISPLAY=:1
-# Output file
-OUTFILE=/tmp/capture.mkv
+# Output file or endpoint [/tmp/capture.mkv|url]
+OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY}
 # Recording duration
 # As an input option, limit the duration of data read from the input file (sec)
 # As an output option, stop writing after its duration reaches duration
@@ -49,7 +49,7 @@ FMT2=pulse
 # Video Codec -- check options with `ffmpeg -codecs`
 VCODEC=libx264
 # Audio Codec -- check options with `ffmpeg -codecs`
-ACODEC=flac
+ACODEC=libmp3lame
 # Pixel format -- check options with `ffmpeg -pix_fmts`
 PIXFMT=yuv420p
 # Audio Channels
@@ -64,18 +64,17 @@ BROWSER=firefox
 # Start the X server
 Xvfb $DISPLAY -screen 0 1920x1080x24 -ac &
 
+# Start the window manager
+# metacity --display=$DISPLAY
+
 # Run a browser to capture and set the window size (or use npm script)
 # $BROWSER $URL &
-# Start the window manager
-# TODO: Add window manager
-# Maximize the window
-# wmctrl -r firefox -b add,maximized_vert,maximized_horz
-# Fullscreen the window
-# wmctrl -r firefox -b toggle,fullscreen
-# sleep 4
-
 # Alternatively, use an npm script
 npm start &
+
+# Maximize or fullscreen the window
+# wmctrl -r $BROWSER -b add,maximized_vert,maximized_horz
+# wmctrl -r $BROWSER -b toggle,fullscreen
 
 # Remove existing files
 if [ -f $OUTFILE ]; then
@@ -84,13 +83,14 @@ fi
 
 # Capture with ffmpeg (video + audio)
 if [ "$DURATION" -gt 0 ]; then
-ffmpeg -s $FRAMESIZE -thread_queue_size 128 -probesize 20M -f $FMT1 -i \
-$DISPLAY -f $FMT2 -thread_queue_size 2048 -ac $AC -i $ADI -crf $CRF -g $GOP \
--preset $PRESET -tune $TUNE -vsync 1 -async 1 -vcodec $VCODEC -acodec $ACODEC \
--pix_fmt $PIXFMT -r $FRAMERATE -t $DURATION $OUTFILE
+ffmpeg -s $FRAMESIZE -thread_queue_size 256 -probesize 20M -f $FMT1 -i \
+$DISPLAY -f $FMT2 -thread_queue_size 2048 -ac $AC -i $ADI -ar 44100 -crf $CRF \
+-g $GOP -preset $PRESET -tune $TUNE -vsync 1 -async 1 -vcodec $VCODEC \
+-acodec $ACODEC -pix_fmt $PIXFMT -r $FRAMERATE -b:v 2500k -f flv -t $DURATION \
+$OUTFILE
 else
-ffmpeg -s $FRAMESIZE -thread_queue_size 128 -probesize 20M -f $FMT1 -i \
-$DISPLAY -f $FMT2 -thread_queue_size 2048 -ac $AC -i $ADI -crf $CRF -g $GOP \
--preset $PRESET -tune $TUNE -vsync 1 -async 1 -vcodec $VCODEC -acodec $ACODEC \
--pix_fmt $PIXFMT -r $FRAMERATE $OUTFILE
+ffmpeg -s $FRAMESIZE -thread_queue_size 256 -probesize 20M -f $FMT1 -i \
+$DISPLAY -f $FMT2 -thread_queue_size 2048 -ac $AC -i $ADI -ar 44100 -crf $CRF \
+-g $GOP -preset $PRESET -tune $TUNE -vsync 1 -async 1 -vcodec $VCODEC \
+-acodec $ACODEC -pix_fmt $PIXFMT -r $FRAMERATE -b:v 2500k -f flv $OUTFILE
 fi
