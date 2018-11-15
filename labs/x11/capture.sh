@@ -8,8 +8,8 @@
 function cleanup {
   echo "Cleaning up..."
   echo "Closing browser"
-  killall -I -s SIGINT $BROWSER
-  # wmctrl -c $BROWSER
+  # killall -I -s SIGINT $BROWSER
+  wmctrl -c $BROWSER
   sleep 2
 
   if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
@@ -38,7 +38,7 @@ OUTFILE=/tmp/capture.mkv
 
 # Recording duration
 # To record for a undefined amount of time, set DURATION to 0, press 'q' to stop
-DURATION=20
+DURATION=0
 
 # Framerate 
 FRAMERATE=30
@@ -103,27 +103,36 @@ BRV=2500k
 BROWSER=firefox
 
 # URL to navigate to in browser
-# URL=https://www.youtube.com/watch?v=TjAa0wOe5k4
+# URL=https://www.google.com
 
 ################################################################################
 ##                                    RUN                                     ##
 ################################################################################
 
-# Start the X server
-Xvfb $DISPLAY -screen 0 1920x1080x24 -ac &
+# Start the X server if not already running
+if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
+  echo "X server already running on display ${DISPLAY}"
+else
+  Xvfb $DISPLAY -screen 0 1920x1080x24 -ac &
+fi
+
+sleep 5
 
 # Start the window manager
-# mwm -display=$DISPLAY &
-# metacity --display=$DISPLAY --replace &
+metacity --replace &
+
+sleep 5
 
 # Run a browser to capture and set the window size (or use npm script)
 # $BROWSER $URL &
 # Alternatively, use an npm script
 npm start &
 
+sleep 5
+
 # Maximize or fullscreen the window
 # wmctrl -r $BROWSER -b add,maximized_vert,maximized_horz
-# wmctrl -r $BROWSER -b toggle,fullscreen
+wmctrl -r $BROWSER -b toggle,fullscreen &
 
 # Remove existing output file
 if [ -f $OUTFILE ]; then

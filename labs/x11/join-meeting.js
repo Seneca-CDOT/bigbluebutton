@@ -26,6 +26,7 @@ until = webdriver.until;
     try {
         let driver = await new webdriver.Builder().forBrowser('firefox').build();
         // await driver.manage().window().maximize();
+        // await driver.manage().window().fullscreen();
         await driver.get('https://dev2a.bigbluebutton.org/demo/demoHTML5.jsp');
         let nameField = await driver.findElement(By.name('username'));
         await nameField.sendKeys("capturebot");
