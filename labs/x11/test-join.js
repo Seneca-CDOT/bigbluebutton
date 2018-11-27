@@ -4,7 +4,7 @@ By = webdriver.By,
 until = webdriver.until;
 let driver = new webdriver.Builder().forBrowser('firefox').build();
 
-describe('BBB HTML5 meeting tests', function() {
+describe('BBB HTML5 join meeting tests', function() {
     before(function() {
         driver.manage().window().maximize();
         driver.get('https://romania.cdot.systems/b/mat-aeu-e97');

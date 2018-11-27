@@ -1,7 +1,7 @@
 {
-  "name": "share-meeting",
+  "name": "capture-and-share",
   "version": "1.0.0",
-  "description": "Sends output of a BigBlueButton meeting to a Xvfb server",
+  "description": "Captures audio and video output to save to a file or livestream",
   "main": "test-join.js",
   "scripts": {
     "start": "node join-meeting",

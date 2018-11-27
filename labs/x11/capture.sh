@@ -36,7 +36,7 @@ export DISPLAY=:1
 # OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY}
 OUTFILE=/tmp/capture.mkv
 
-# Recording duration
+# Recording duration in seconds
 # To record for a undefined amount of time, set DURATION to 0, press 'q' to stop
 DURATION=0
 
@@ -116,7 +116,7 @@ else
   Xvfb $DISPLAY -screen 0 1920x1080x24 -ac &
 fi
 
-sleep 5
+sleep 3
 
 # Start the window manager
 metacity --replace &
