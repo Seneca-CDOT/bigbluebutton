@@ -21,13 +21,13 @@ until = webdriver.until;
 //     }
 // })()
 
-// Join via dev2a
+// Join via dev22
 (async () => {
     try {
         let driver = await new webdriver.Builder().forBrowser('firefox').build();
         // await driver.manage().window().maximize();
         // await driver.manage().window().fullscreen();
-        await driver.get('https://dev2a.bigbluebutton.org/demo/demoHTML5.jsp');
+        await driver.get('https://dev22.bigbluebutton.org/demo/demoHTML5.jsp');
         let nameField = await driver.findElement(By.name('username'));
         await nameField.sendKeys("capturebot");
         let meetingField = await driver.findElement(By.name('meetingname'));

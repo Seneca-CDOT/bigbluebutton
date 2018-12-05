@@ -1,8 +1,8 @@
 {
-  "name": "capture-and-share",
+  "name": "broadcast-bot",
   "version": "1.0.0",
   "description": "Captures audio and video output to save to a file or livestream",
-  "main": "test-join.js",
+  "main": "join-meeting.js",
   "scripts": {
     "start": "node join-meeting",
     "test": "mocha test-join --timeout 10000"

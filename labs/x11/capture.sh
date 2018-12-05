@@ -4,12 +4,16 @@
 ##                                 FUNCTIONS                                  ##
 ################################################################################
 
+# Usage error message
+usage() {
+  echo "Usage: $0 [-d <:1-99>] [-o <file|url>] [-a <0-9>] [-u <url>] [-m <string>] [-p <string>]" 1>&2; exit 1;
+}
+
 # Remove dangling xserver and browser session
-function cleanup {
+cleanup() {
   echo "Cleaning up..."
   echo "Closing browser"
-  # killall -I -s SIGINT $BROWSER
-  wmctrl -c $BROWSER
+  wmctrl -c $BROWSER 2> /dev/null
   sleep 2
 
   if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
@@ -30,23 +34,15 @@ trap cleanup SIGINT SIGTERM EXIT
 ################################################################################
 
 # Display number
-export DISPLAY=:1
+# export DISPLAY=:1
 
 # Output file or endpoint [/tmp/capture.mkv|url]
 # OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY}
-export OUTFILE=/tmp/capture.mkv
+# export OUTFILE=/tmp/capture.mkv
 
 # Recording duration in seconds
 # To record for a undefined amount of time, leave DURATION empty or set to 0
-export DURATION=
-
-if [[ -z $DURATION || $DURATION =~ ^[0]+$ ]]; then
-  export DURATIONARG=
-elif [[ $DURATION =~ ^[0-9]+$ ]]; then
-  export DURATIONARG="-t ${DURATION}"
-elif [[ $DURATION =~ ^[^0-9]+$ ]]; then 
-  echo "Duration value must be empty or an integer greater than or equal to 0."
-fi
+# export DURATION=
 
 # Framerate 
 export FRAMERATE=30
@@ -86,7 +82,7 @@ export PIXFMT=yuv420p
 export AC=2
 
 # Alsa Device Index (obtain from `pacmd list-sources`)
-export ADI=0
+# export ADI=0
 
 # Probesize
 # Size of the data to analyze to get stream information, in bytes
@@ -117,6 +113,29 @@ export BROWSER=firefox
 ##                                    RUN                                     ##
 ################################################################################
 
+# Check command options
+# TODO: option validation
+while getopts d:o:t:a:u:m:p: option; do
+  case "${option}" in
+  d)  export DISPLAY=${OPTARG};;
+  o)  export OUTFILE=${OPTARG};;
+  t)  DURATIONARG=${OPTARG}
+      if [[ -z $DURATIONARG || $DURATIONARG =~ ^[0]+$ ]]; then
+        export DURATION=
+      elif [[ $DURATIONARG =~ ^[0-9]+$ ]]; then
+        export DURATION="-t ${DURATIONARG}"
+      elif [[ $DURATIONARG =~ ^[^0-9]+$ ]]; then 
+        echo "Duration value must be empty or an integer greater than or equal to 0."
+        usage
+      fi
+      ;;
+  a)  export ADI=${OPTARG};;
+  u)  export URL=${OPTARG};;
+  m)  export MEETINGNAME=${OPTARG};;
+  p)  export PASSWORD=${OPTARG};;
+  esac
+done
+
 # Start the X server if not already running
 if [ -f /tmp/.X${DISPLAY:1}-lock ]; then
   echo "X server already running on display ${DISPLAY}"
@@ -129,14 +148,14 @@ sleep 5
 # pulseaudio -D --system
 # sleep 5
 
-# Start the window manager
-metacity --replace &
-sleep 5
-
 # Run a browser to capture and set the window size (or use npm script)
 # $BROWSER $URL &
 # Alternatively, use an npm script
 npm start &
+sleep 5
+
+# Start the window manager
+metacity --replace &
 sleep 5
 
 # Maximize or fullscreen the window
@@ -153,4 +172,4 @@ ffmpeg -s $FRAMESIZE -thread_queue_size $VTQS -probesize $PROBESIZE -f $VFMT \
 -i $DISPLAY -thread_queue_size $ATQS -f $AFMT -ac $AC -i $ADI -ar $AR \
 -crf $CRF -g $GOP -preset $PRESET -tune $TUNE -vsync 1 -async 1 \
 -vcodec $VCODEC -acodec $ACODEC -pix_fmt $PIXFMT -r $FRAMERATE -b:v $BRV \
--f flv $DURATIONARG $OUTFILE
+-f flv $DURATION $OUTFILE

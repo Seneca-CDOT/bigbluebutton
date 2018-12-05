@@ -9,7 +9,12 @@ At a later stage, Chat and Polling from the BigBlueButton meeting will be reinte
 
 #### Install XVFB (X Virtual Frame Buffer)
 ```
-sudo dnf install xorg-x11-server-Xvfb
+sudo dnf install xorg-x11-server-Xvfb xorg-x11-utils
+```
+
+#### Install PulseAudio
+```
+sudo dnf install pulseaudio pulseaudio-utils
 ```
 
 #### Install ffmpeg
@@ -21,6 +26,32 @@ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-rele
 Install ffmpeg
 ```
 sudo dnf install ffmpeg ffmpeg-devel
+```
+
+#### Other Installations
+Metacity Window Manager
+```
+sudo dnf install metacity
+```
+
+Window Manager Control
+```
+sudo dnf install wmctrl
+```
+
+Nodejs
+```
+sudo dnf install nodejs
+```
+
+Firefox
+```
+sudo dnf install firefox
+```
+
+Proc file system utilities
+```
+sudo dnf install procps psmisc
 ```
 
 ### Run
