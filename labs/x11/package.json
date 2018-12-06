@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "geckodriver": "^1.12.2",
+    "minimist": "^1.2.0",
     "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "devDependencies": {}
