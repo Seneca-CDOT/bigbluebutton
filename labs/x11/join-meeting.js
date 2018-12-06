@@ -1,4 +1,5 @@
 let webdriver = require('selenium-webdriver');
+const geckodriver = require('geckodriver');
 const args = require('minimist')(process.argv.slice(2));
 By = webdriver.By,
 until = webdriver.until;
@@ -8,6 +9,7 @@ let meetingName = args['meeting'];
 let password = args['password'];
 
 // Join via dev22
+// https://dev22.bigbluebutton.org/demo/demoHTML5.jsp
 (async () => {
     try {
         let driver = await new webdriver.Builder().forBrowser('firefox').build();

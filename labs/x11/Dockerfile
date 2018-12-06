@@ -13,4 +13,4 @@ RUN npm install
 
 EXPOSE 80
 
-CMD ["./capture.sh"]
+CMD ["./capture.sh", "-o", "echo $OUTFILE", "-u", "echo $URL", "-m", "echo $MEETING", "-p", "echo $PASSWORD" ]
