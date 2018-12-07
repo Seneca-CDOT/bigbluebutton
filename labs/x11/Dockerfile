@@ -11,6 +11,11 @@ https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -
 RUN dnf install -y xorg-x11-server-Xvfb xorg-x11-utils ffmpeg ffmpeg-devel metacity wmctrl nodejs firefox procps psmisc pulseaudio pulseaudio-utils
 RUN npm install
 
+ENV OUTFILE=${OUTFILE:-UNDEFINED}
+ENV URL=${URL:-UNDEFINED}
+ENV MEETING=${MEETING:-UNDEFINED}
+ENV PASSWORD=${PASSWORD:-UNDEFINED}
+
 EXPOSE 80
 
-CMD ["./capture.sh", "-o", "echo $OUTFILE", "-u", "echo $URL", "-m", "echo $MEETING", "-p", "echo $PASSWORD" ]
+CMD [ "./capture.sh", "-o", "${OUTFILE}", "-u", "${URL}", "-m", "${MEETING}", "-p", "${PASSWORD}" ]
