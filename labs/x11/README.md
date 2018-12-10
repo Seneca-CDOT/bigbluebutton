@@ -55,8 +55,20 @@ sudo dnf install procps psmisc
 ```
 
 ### Run
+From command line:
 ```
-./capture.sh
+./capture.sh -o $OUTFILE -u $URL -m $MEETING -p $PASSWORD
+```
+From docker:
+```
+docker build -t broadcast-bot .
+docker run -d -p 80:80 --device /dev/snd \
+-e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} -e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
+-e MEETING="Livestream Capture Meeting" \
+-e PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \
+-v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}pulse/native \
+-v ~/.config/pulse/cookie:/root/.config/pulse/cookie \
+--group-add $(getent group audio | cut -d: -f3) broadcast-bot:latest
 ```
 
 ### Tests
