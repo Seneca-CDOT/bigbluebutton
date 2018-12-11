@@ -18,4 +18,4 @@ ENV PASSWORD $PASSWORD
 
 EXPOSE 80
 
-CMD ./capture.sh -o ${OUTFILE} -u ${URL} -m ${MEETING} -p ${PASSWORD}
+CMD ./capture.sh -o $OUTFILE -u $URL -m $MEETING -p $PASSWORD
