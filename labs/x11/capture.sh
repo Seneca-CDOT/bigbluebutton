@@ -42,16 +42,16 @@ export DISPLAY=:1
 
 # Recording duration in seconds
 # To record for a undefined amount of time, leave DURATION empty or set to 0
-# export DURATION=
+export DURATIONARG=
 
-# if [[ -z $DURATIONARG || $DURATIONARG =~ ^[0]+$ ]]; then
-#   export DURATION=
-# elif [[ $DURATIONARG =~ ^[0-9]+$ ]]; then
-#   export DURATION="-t ${DURATIONARG}"
-# elif [[ $DURATIONARG =~ ^[^0-9]+$ ]]; then 
-#   echo "Duration value must be empty or an integer greater than or equal to 0."
-#   usage
-# fi
+if [[ -z $DURATIONARG || $DURATIONARG =~ ^[0]+$ ]]; then
+  export DURATION=
+elif [[ $DURATIONARG =~ ^[0-9]+$ ]]; then
+  export DURATION="-t ${DURATIONARG}"
+elif [[ $DURATIONARG =~ ^[^0-9]+$ ]]; then 
+  echo "Duration value must be empty or an integer greater than or equal to 0."
+  usage
+fi
 
 # Framerate 
 export FRAMERATE=30
@@ -145,7 +145,10 @@ fi
 sleep 5
 
 # Start pulseaudio
-# pulseaudio -D --system
+# su worker -c "mkdir -p /dev/snd/;
+# pulseaudio --fail --daemonize --system --disallow-exit;
+# sleep 2;
+# pactl load-module module-null-sink"
 # sleep 5
 
 # Run a selenium script to capture from a browser
