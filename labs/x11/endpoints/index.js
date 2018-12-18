@@ -1,19 +1,17 @@
 const express = require ('express');
-// const bodyParser = require('body-parser');
 const { exec } = require('child_process');
 const app = express();
 const port = 3000;
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+    next();
 });
 
 app.get("/start", (req, res) => {
+    console.log("reached start endpoint");
     exec("./capture.sh -o $OUTFILE -u $URL -m $MEETING -p $PASSWORD", (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);

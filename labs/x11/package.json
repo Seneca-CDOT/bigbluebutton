@@ -2,6 +2,7 @@
   "name": "broadcast-bot",
   "version": "1.0.0",
   "description": "Captures audio and video output to save to a file or livestream",
+  "private": true,
   "main": "join-meeting.js",
   "scripts": {
     "start": "node join-meeting",
