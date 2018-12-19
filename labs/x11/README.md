@@ -1,8 +1,8 @@
 ## X11 Development
 
-The goal of this is to capture video and audio from a BBB meeeting, pass it into a screencasting tool, and publish it to a CDN.
+This tool captures video and audio from a BBB HTML5 meeeting (or other URL), passes it into a screencasting tool, and publish it to a CDN.
 
-At a later stage, Chat and Polling from the BigBlueButton meeting will be reintegrated so that users are able to participate.
+When integrated into the BBB HTML5 client, clicking on the broadcast button from the action menu will hit the start endpoint in the container, which will intiate the capture script and begin broadcasting. Similarly, ending the broadcast via action button will hit the stop endpoint and end the broadcast.
 
 
 ### Setup
@@ -62,13 +62,32 @@ From command line:
 From docker:
 ```
 docker build -t broadcast-bot .
-docker run -d -p 80:80 --device /dev/snd \
+
+docker run -d -p 3000:3000 --device /dev/snd \
 -e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} -e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
 -e MEETING="Livestream Capture Meeting" \
 -e PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \
 -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}pulse/native \
 -v ~/.config/pulse/cookie:/root/.config/pulse/cookie \
 --group-add $(getent group audio | cut -d: -f3) broadcast-bot:latest
+```
+or manually
+```
+docker run -it -p 3000:3000 \
+-e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} \
+-e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
+-e MEETING="Livestream Capture Meeting" \
+broadcast-bot:latest bash
+
+(start the node endpoints server from within container)
+node endpoints/index.js &
+```
+
+In a browser window:
+```
+localhost:3000/start
+localhost:3000/stop
+localhost:3000/status
 ```
 
 ### Tests
