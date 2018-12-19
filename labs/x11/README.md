@@ -5,7 +5,7 @@ This tool captures video and audio from a BBB HTML5 meeeting (or other URL), pas
 When integrated into the BBB HTML5 client, clicking on the broadcast button from the action menu will hit the start endpoint in the container, which will intiate the capture script and begin broadcasting. Similarly, ending the broadcast via action button will hit the stop endpoint and end the broadcast.
 
 
-### Setup
+### Manual Setup (for local testing and development)
 
 #### Install XVFB (X Virtual Frame Buffer)
 ```
@@ -72,7 +72,7 @@ docker run -d -p 3000:3000 --device /dev/snd \
 -v ~/.config/pulse/cookie:/root/.config/pulse/cookie \
 --group-add $(getent group audio | cut -d: -f3) broadcast-bot:latest
 ```
-or manually
+or manually, without passing through pulseaudio devices
 ```
 docker run -it -p 3000:3000 \
 -e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} \
