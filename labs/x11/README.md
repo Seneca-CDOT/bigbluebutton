@@ -64,7 +64,8 @@ From docker:
 docker build -t broadcast-bot .
 
 docker run -d -p 3000:3000 --device /dev/snd \
--e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} -e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
+-e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} \
+-e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
 -e MEETING="Livestream Capture Meeting" \
 -e PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \
 -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}pulse/native \
@@ -78,8 +79,10 @@ docker run -it -p 3000:3000 \
 -e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
 -e MEETING="Livestream Capture Meeting" \
 broadcast-bot:latest bash
+```
 
-(start the node endpoints server from within container)
+Then start the node endpoints server from within container
+```
 node endpoints/index.js &
 ```
 
