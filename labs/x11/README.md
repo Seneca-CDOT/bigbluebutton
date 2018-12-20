@@ -63,7 +63,7 @@ From docker:
 ```
 docker build -t broadcast-bot .
 
-docker run -d -p 3000:3000 --device /dev/snd \
+docker run -d -p 3000:3000 --device /dev/snd --name broadcast-bot \
 -e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} \
 -e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
 -e MEETING="Livestream Capture Meeting" \
@@ -73,15 +73,24 @@ docker run -d -p 3000:3000 --device /dev/snd \
 --group-add $(getent group audio | cut -d: -f3) broadcast-bot:latest
 ```
 or manually, without passing through pulseaudio devices
+Detached:
 ```
-docker run -it -p 3000:3000 \
+docker run -d -p 3000:3000 --name broadcast-bot \
 -e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} \
 -e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
 -e MEETING="Livestream Capture Meeting" \
-broadcast-bot:latest bash
+broadcast-bot:latest
+```
+Interactively:
+```
+docker run -it -p 3000:3000 --name broadcast-bot \
+-e OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY} \
+-e URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp \
+-e MEETING="Livestream Capture Meeting" \
+broadcast-bot:latest /bin/bash
 ```
 
-Then start the node endpoints server from within container
+Then start the node endpoints server
 ```
 node endpoints/index.js &
 ```

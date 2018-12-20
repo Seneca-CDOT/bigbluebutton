@@ -11,8 +11,10 @@ app.use((req, res, next) => {
 });
 
 app.get("/start", (req, res) => {
-    console.log("reached start endpoint");
-    exec("./capture.sh -o $OUTFILE -u $URL -m $MEETING -p $PASSWORD", (error, stdout, stderr) => {
+    console.log("Starting...");
+    // should accept a meeting name, password, and rtmp endpoint,
+    // then issue kube to start a container and return an ID
+    exec("kubectl run --image=broadcast-bot", (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
@@ -23,11 +25,13 @@ app.get("/start", (req, res) => {
 });
 
 app.get("/stop", (req, res) => {
-    res.send("Stopped!");
+    res.send("Stopping...");
+    // should accept an ID and issue kube to kill the container by that ID
 });
 
 app.get("/status", (req, res) => {
-    res.send("Status!");
+    // should accept an ID and return a success or failure message
+    res.send("Getting status");
 });
 
 app.listen(port, (err) => {
