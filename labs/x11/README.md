@@ -89,6 +89,10 @@ docker run -it -p 3000:3000 --name broadcast-bot \
 -e MEETING="Livestream Capture Meeting" \
 broadcast-bot:latest /bin/bash
 ```
+To jump into a running detached container:
+```
+docker exec -it broadcast-bot /bin/bash
+```
 
 Then start the node endpoints server
 ```
