@@ -26,5 +26,4 @@ ENV PASSWORD $PASSWORD
 
 EXPOSE 3000
 
-# CMD ./capture.sh -o $OUTFILE -u $URL -m $MEETING -p $PASSWORD
-CMD node endpoints/index.js
+CMD ./capture.sh -o $OUTFILE -u $URL -m $MEETING -p $PASSWORD

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: broadcast
+  name: broadcast
+spec:
+  containers:
+  - env:
+    - name: MEETING
+    - name: OUTFILE
+    - name: PASSWORD
+    - name: URL
+    image: broadcast-bot
+    name: broadcast
+    ports:
+    - containerPort: 3000
+    resources: {}
+  restartPolicy: Never
+status: {}
