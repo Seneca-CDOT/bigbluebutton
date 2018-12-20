@@ -17,7 +17,6 @@ RUN apt-add-repository -y ppa:jonathonf/ffmpeg-4
 RUN apt install -y xvfb ffmpeg metacity wmctrl nodejs npm firefox procps psmisc pulseaudio pulseaudio-utils
 
 RUN npm install
-RUN cd endpoints && npm install
 
 ENV OUTFILE $OUTFILE
 ENV URL $URL
