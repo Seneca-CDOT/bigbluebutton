@@ -13,7 +13,8 @@ spec:
     - name: PASSWORD
     - name: URL
     image: broadcast-bot
-    name: broadcast
+    imagePullPolicy: IfNotPresent
+    name: broadcast-bot
     ports:
     - containerPort: 3000
     resources: {}

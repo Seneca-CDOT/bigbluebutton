@@ -20,12 +20,18 @@ sudo dnf install pulseaudio pulseaudio-utils
 #### Install ffmpeg
 Add the RPMFusion repositories
 ```
-sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 ```
 
 Install ffmpeg
 ```
 sudo dnf install ffmpeg ffmpeg-devel
+```
+
+OPTIONAL Install VLC (for video playback if you want to output ffmpeg to a video file instead of RTMP stream for debugging purposes)
+```
+sudo dnf install vlc
 ```
 
 #### Other Installations
@@ -55,11 +61,16 @@ sudo dnf install procps psmisc
 ```
 
 ### Run
-From command line:
+#### From command line:
 ```
 ./capture.sh -o $OUTFILE -u $URL -m $MEETING -p $PASSWORD
 ```
-From docker:
+If outfile is a locally saved file, playback using:
+```
+cvlc /tmp/capture.mkv (or whatever your filename is)
+```
+
+#### From docker:
 ```
 docker build -t broadcast-bot .
 
@@ -93,8 +104,40 @@ To jump into a running detached container:
 ```
 docker exec -it broadcast-bot /bin/bash
 ```
+Using docker-compose:
+```
+export OUTFILE=rtmp://a.rtmp.youtube.com/live2/{YOUR-YOUTUBE-STREAM-KEY}
+export URL=https://dev22.bigbluebutton.org/demo/demoHTML5.jsp
+export MEETING="Livestream Capture Meeting"
+export PASSWORD=
+docker-compose up
+```
+#### Kubernetes
+To create a local kubernetes test environment:
+```
+minikube start --vm-driver=kvm2
+```
+To start the kubernetes dashboard:
+```
+minikube dashboard &
+```
+Create the pods (containers) from YAML files:
+Note: working directory should be `bigbluebutton/labs/x11/`
+```
+kubectl create -f ./broadcast-pod.yaml -f ./broadcast-service.yaml
+```
+To ssh into the minikube vm:
+```
+ssh minikube
+```
 
-Then start the node endpoints server
+For more information on minikube, visit https://kubernetes.io/docs/setup/minikube/
+For more information on kube commands, visit https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+For more information on the kube equivalent of docker commands, visit https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/
+
+#### Endpoints
+Start the node endpoints:
+Note: working directory should be `bigbluebutton/labs/x11/`
 ```
 node endpoints/index.js &
 ```
