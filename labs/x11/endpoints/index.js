@@ -10,8 +10,8 @@ app.use((req, res, next) => {
     next();
 });
 
-// should accept a meeting name, password, and rtmp endpoint,
-// then issue kube to start a container and return the container/pod ID
+// should accept a meeting name, password, rtmp endpoint, and unique identifier (pod name/label)
+// then issue kube to start a container and return the unique pod identifier
 app.get("/start", (req, res) => {
     console.log("Starting...");
     exec("kubectl run --image=broadcast-bot", (error, stdout, stderr) => {
@@ -24,7 +24,7 @@ app.get("/start", (req, res) => {
     });
 });
 
-// should accept an pod/container ID and issue kube to kill the container by that ID
+// should accept a unique identifier (pod name/label) for the pod and issue kube to kill the pod with that name/label
 app.get("/stop", (req, res) => {
     res.send("Stopping...");
     exec("kubectl delete pod,service $ID", (error, stdout, stderr) => {
@@ -37,17 +37,17 @@ app.get("/stop", (req, res) => {
     });
 });
 
-// should accept a pod/container ID and return success if it exists or failure if not
+// should accept a unique identifier (pod name/label) for the pod and issue kube to check for existing pods with that name/label
 app.get("/status", (req, res) => {
     res.send("Getting status...");
-    // exec("kubectl get pods -o wide", (error, stdout, stderr) => {
-    //     if (error) {
-    //         console.error(`exec error: ${error}`);
-    //         return;
-    //     };
-    //     console.log(`stdout: ${stdout}`);
-    //     console.log(`stderr: ${stderr}`);
-    // })
+    exec("kubectl get pods -o wide", (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        };
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+    })
 });
 
 app.listen(port, (err) => {

@@ -128,7 +128,7 @@ kubectl create -f ./broadcast-pod.yaml -f ./broadcast-service.yaml
 ```
 To ssh into the minikube vm:
 ```
-ssh minikube
+minikube ssh
 ```
 
 For more information on minikube, visit https://kubernetes.io/docs/setup/minikube/
@@ -136,17 +136,46 @@ For more information on kube commands, visit https://kubernetes.io/docs/referenc
 For more information on the kube equivalent of docker commands, visit https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/
 
 #### Endpoints
-Start the node endpoints:
+Start the node endpoint server on the same machine/node that the master kube cluster is on ( necessary so that kubectl commands issued by endpoitns will succeed):
 Note: working directory should be `bigbluebutton/labs/x11/`
 ```
 node endpoints/index.js &
 ```
 
-In a browser window:
+ALL endpoints are POST methods, and will receive the following as a JSON object with Key:Value pairs:
+Start (Should accept a RTMP endpoint (OUTFILE), Join URL (URL), Meeting Name (MEETING), Meeting Password (PASSWORD), and Kubernetes Pod Label (LABEL)):
 ```
 localhost:3000/start
+```
+JSON Object Example:
+```
+{
+    OUTFILE: rtmp://a.rtmp.youtube.com/live2/[YOUR-YOUTUBE-STREAM-KEY],
+    URL: https://dev22.bigbluebutton.org/demo/demoHTML5.jsp,
+    MEETING: "Livestream Capture Meeting",
+    PASSWORD: "123",
+    LABEL: Pod_123
+}
+```
+Stop (Should receive a name/label that uniqely identifies the pod to stop):
+```
 localhost:3000/stop
+```
+JSON Object Example:
+```
+{
+    LABEL: Pod_123
+}
+```
+Status (Should receive a name/label that uniqely identifies the pod to check status on):
+```
 localhost:3000/status
+```
+JSON Object Example:
+```
+{
+    LABEL: Pod_123
+}
 ```
 
 ### Tests
