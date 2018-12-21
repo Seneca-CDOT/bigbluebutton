@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  broadcast:
+    image: broadcast-bot:latest
+    restart: "no"
+    environment:
+      OUTFILE: ${OUTFILE}
+      URL: ${URL}
+      MEETING: ${MEETING}
+      PASSWORD: ${PASSWORD}
+    ports:
+      - 3000:3000

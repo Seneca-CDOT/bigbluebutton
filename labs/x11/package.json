@@ -1,0 +1,19 @@
+{
+  "name": "broadcast-bot",
+  "version": "1.0.0",
+  "description": "Captures audio and video output to save to a file or livestream",
+  "private": true,
+  "main": "join-meeting.js",
+  "scripts": {
+    "start": "node join-meeting",
+    "test": "mocha test-join --timeout 10000"
+  },
+  "author": "Matthew Marangoni",
+  "license": "MIT",
+  "dependencies": {
+    "geckodriver": "^1.12.2",
+    "minimist": "^1.2.0",
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  },
+  "devDependencies": {}
+}
