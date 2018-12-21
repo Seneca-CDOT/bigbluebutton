@@ -112,6 +112,7 @@ To start the kubernetes dashboard:
 minikube dashboard &
 ```
 Create the pods (containers) from YAML files:
+
 Note: working directory should be `bigbluebutton/labs/x11/`
 ```
 kubectl create -f ./broadcast-pod.yaml -f ./broadcast-service.yaml
@@ -127,6 +128,7 @@ For more information on the kube equivalent of docker commands, visit https://ku
 
 #### Endpoints
 Start the node endpoint server on the same machine/node that the master kube cluster is on ( necessary so that kubectl commands issued by endpoitns will succeed):
+
 Note: working directory should be `bigbluebutton/labs/x11/`
 ```
 node endpoints/index.js &
