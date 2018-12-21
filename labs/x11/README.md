@@ -143,7 +143,8 @@ node endpoints/index.js &
 ```
 
 ALL endpoints are POST methods, and will receive the following as a JSON object with Key:Value pairs:
-Start (Should accept a RTMP endpoint (OUTFILE), Join URL (URL), Meeting Name (MEETING), Meeting Password (PASSWORD), and Kubernetes Pod Label (LABEL)):
+
+##### Start (Should accept a RTMP endpoint (OUTFILE), Join URL (URL), Meeting Name (MEETING), Meeting Password (PASSWORD), and Kubernetes Pod Label (LABEL)):
 ```
 localhost:3000/start
 ```
@@ -157,7 +158,7 @@ JSON Object Example:
     LABEL: Pod_123
 }
 ```
-Stop (Should receive a name/label that uniqely identifies the pod to stop):
+##### Stop (Should receive a name/label that uniqely identifies the pod to stop):
 ```
 localhost:3000/stop
 ```
@@ -167,7 +168,7 @@ JSON Object Example:
     LABEL: Pod_123
 }
 ```
-Status (Should receive a name/label that uniqely identifies the pod to check status on):
+##### Status (Should receive a name/label that uniqely identifies the pod to check status on):
 ```
 localhost:3000/status
 ```
@@ -178,7 +179,7 @@ JSON Object Example:
 }
 ```
 
-### Tests
+### Additional Tests (Optional)
 Install mocha
 ```
 npm install --global mocha
