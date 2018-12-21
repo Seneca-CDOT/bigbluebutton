@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 ################################################################################
 ##                                 FUNCTIONS                                  ##
@@ -145,11 +145,8 @@ fi
 sleep 5
 
 # Start pulseaudio
-# su worker -c "mkdir -p /dev/snd/;
-# pulseaudio --fail --daemonize --system --disallow-exit;
-# sleep 2;
-# pactl load-module module-null-sink"
-# sleep 5
+pulseaudio &
+sleep 2;
 
 # Run a selenium script to capture from a browser
 node join-meeting.js --url $URL --meeting "$MEETING" --password "$PASSWORD" &
